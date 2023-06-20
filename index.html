@@ -5,11 +5,7 @@
     <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-        <meta
-            name="description"
-            content="Documentation for ViaAds"
-        >
-    <title>API Reference</title>
+    <title>API Documentation</title>
 
     <style media="screen">
       .highlight table td { padding: 5px; }
@@ -288,14 +284,11 @@
     </style>
     <link href="stylesheets/screen-9c19b03a.css" rel="stylesheet" media="screen" />
     <link href="stylesheets/print-966d6edc.css" rel="stylesheet" media="print" />
-      <script src="javascripts/all-b12a2749.js"></script>
+      <script src="javascripts/all_nosearch-18c3ed8e.js"></script>
 
-    <script>
-      $(function() { setupCodeCopy(); });
-    </script>
   </head>
 
-  <body class="index" data-languages="[&quot;bash&quot;]">
+  <body class="index" data-languages="[]">
     <a href="#" id="nav-button">
       <span>
         NAV
@@ -303,14 +296,7 @@
       </span>
     </a>
     <div class="toc-wrapper">
-      <img src="images/logo-8d174b4e.png" class="logo" alt="" />
-        <div class="lang-selector">
-              <a href="#" data-language-name="bash">bash</a>
-        </div>
-        <div class="search">
-          <input type="text" class="search" id="input-search" placeholder="Search">
-        </div>
-        <ul class="search-results"></ul>
+      <img src="images/logo-b382f2ae.png" class="logo" alt="" />
       <ul id="toc" class="toc-list-h1">
           <li>
             <a href="#introduction" class="toc-h1 toc-link" data-title="Introduction">Introduction</a>
@@ -319,13 +305,13 @@
             <a href="#authentication" class="toc-h1 toc-link" data-title="Authentication">Authentication</a>
           </li>
           <li>
-            <a href="#coupons" class="toc-h1 toc-link" data-title="Coupons">Coupons</a>
+            <a href="#discounts-section" class="toc-h1 toc-link" data-title="Discounts Section">Discounts Section</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#coupons-2" class="toc-h2 toc-link" data-title="Coupons">Coupons</a>
+                    <a href="#discounts" class="toc-h2 toc-link" data-title="Discounts">Discounts</a>
                   </li>
                   <li>
-                    <a href="#coupon" class="toc-h2 toc-link" data-title="Coupon">Coupon</a>
+                    <a href="#discount" class="toc-h2 toc-link" data-title="Discount">Discount</a>
                   </li>
                   <li>
                     <a href="#event" class="toc-h2 toc-link" data-title="Event">Event</a>
@@ -338,7 +324,7 @@
       <div class="dark-box"></div>
       <div class="content">
         <h1 id='introduction'>Introduction</h1>
-<p>Welcome to the ViaAds API documentation.</p>
+<p>Welcome to the ViaAds - ViaBill API documentation.</p>
 <h1 id='authentication'>Authentication</h1>
 <p>To authenticate your requests to the ViaAds API, you will need to include your API key in the header of each request.</p>
 
@@ -347,8 +333,8 @@
 <aside class="notice">
 You must replace <code>key123</code> with your personal API key.
 </aside>
-<h1 id='coupons'>Coupons</h1><h2 id='coupons-2'>Coupons</h2><div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> <span class="s1">'GET'</span> <span class="se">\</span>
-  <span class="s1">'https://coupons.viaads.dk/Coupons/&lt;debtorAccountId&gt;/&lt;size&gt;/&lt;page&gt;'</span> <span class="se">\</span>
+<h1 id='discounts-section'>Discounts Section</h1><h2 id='discounts'>Discounts</h2><div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> <span class="s1">'GET'</span> <span class="se">\</span>
+  <span class="s1">'https://viabill.viaads.dk/discounts/&lt;email&gt;/&lt;size&gt;/&lt;page&gt;'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'accept: text/plain'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'ApiKey: key123'</span>
 </code></pre></div>
@@ -357,7 +343,7 @@ You must replace <code>key123</code> with your personal API key.
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"lastPage"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"coupons"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+  </span><span class="nl">"discounts"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="p">{</span><span class="w">
       </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
       </span><span class="nl">"src"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
@@ -367,67 +353,212 @@ You must replace <code>key123</code> with your personal API key.
   </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>This endpoint is used to retrieve a list of coupons</p>
+<p>This endpoint is used to retrieve a list of discounts based on the Customers Preferences</p>
 <h3 id='http-request'>HTTP Request</h3>
-<p><code>GET https://coupons.viaads.dk/Coupons/&lt;debtorAccountId&gt;/&lt;size&gt;/&lt;page&gt;</code></p>
+<p><code>GET https://viabill.viaads.dk/discounts/&lt;email&gt;/&lt;size&gt;/&lt;page&gt;</code></p>
 <h3 id='url-parameters'>URL Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
+<th>Type</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>DebtorAccountId</td>
-<td>The ID of the kitten to retrieve</td>
+<td>Email</td>
+<td>string</td>
+<td>The email of the customer requesting</td>
 </tr>
 <tr>
 <td>Size</td>
-<td>The ID of the kitten to retrieve</td>
+<td>int</td>
+<td>How many elements to recevice pr. page</td>
 </tr>
 <tr>
 <td>Page</td>
-<td>The ID of the kitten to retrieve</td>
+<td>int</td>
+<td>The page number</td>
 </tr>
 </tbody></table>
-<h2 id='coupon'>Coupon</h2><div class="highlight"><pre class="highlight shell"><code><span class="o">{</span>
-  <span class="s2">"createdGmt"</span>: <span class="s2">"2023-06-14T09:23:30.874Z"</span>,
-<span class="o">}</span>
+
+<p><br></p>
+<h3 id='discountpagination-properties'>DiscountPagination Properties</h3>
+<table><thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>LastPage</td>
+<td>integer</td>
+<td>The last page of the pagination.</td>
+</tr>
+<tr>
+<td>Discounts</td>
+<td>List&lt;DiscountRef&gt;</td>
+<td>The list of discount elements.</td>
+</tr>
+</tbody></table>
+<h3 id='discountref-properties'>DiscountRef Properties</h3>
+<table><thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Id</td>
+<td>long</td>
+<td>The ID of the discount.</td>
+</tr>
+<tr>
+<td>Src</td>
+<td>string</td>
+<td>The source of the discount.</td>
+</tr>
+<tr>
+<td>Title</td>
+<td>string</td>
+<td>The title of the discount.</td>
+</tr>
+<tr>
+<td>Subtitle</td>
+<td>string</td>
+<td>The subtitle of the discount.</td>
+</tr>
+</tbody></table>
+<h2 id='discount'>Discount</h2>
+<p>This endpoint is used to retrieve a discount incl. details by its id.</p>
+<div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> <span class="s1">'GET'</span> <span class="se">\</span>
+  <span class="s1">'https://viabill.viaads.dk/discounts/ById/{discountId}/{email}'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'accept: text/plain'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'ApiKey: key123'</span>
 </code></pre></div>
 <blockquote>
 <p>JSON response example:</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Success"</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"overviewImageSrc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"bannerImageSrc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"subtitle"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"expireDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"datetime"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"discountCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"redirectLink"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"discountType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"comingSoon"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"isSubscribed"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div>
-<p>This endpoint is used to retrieve a coupon incl. details by its id.</p>
-<h3 id='http-request-2'>HTTP Request</h3>
-<p><code>POST https://coupons.viaads.dk/Coupons/&lt;couponId&gt;/&lt;debtorAccountId&gt;</code></p>
+</span></code></pre></div><h3 id='http-request-2'>HTTP Request</h3>
+<p><code>POST https://viabill.viaads.dk/discounts/&lt;discountId&gt;/&lt;email&gt;</code></p>
 <h3 id='url-parameters-2'>URL Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
+<th>Type</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>CouponId</td>
-<td>The ID of the kitten to retrieve</td>
+<td>DiscountId</td>
+<td>long</td>
+<td>The ID of the discount</td>
 </tr>
 <tr>
-<td>DebtorAccountId</td>
-<td>The ID of the kitten to retrieve</td>
+<td>Email</td>
+<td>string</td>
+<td>The email of the customer requesting</td>
 </tr>
 </tbody></table>
-<h2 id='event'>Event</h2><div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> <span class="s1">'POST'</span> <span class="se">\</span>
-  <span class="s1">'https://coupons.viaads.dk/Coupons/&lt;couponId&gt;/&lt;debtorAccountId&gt;'</span> <span class="se">\</span>
+
+<p><br></p>
+<h3 id='discount-properties'>Discount Properties</h3>
+<table><thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Id</td>
+<td>long</td>
+<td>The identifier of the coupon.</td>
+</tr>
+<tr>
+<td>OverviewImageSrc</td>
+<td>string</td>
+<td>The image source for the overview image of the coupon.</td>
+</tr>
+<tr>
+<td>BannerImageSrc</td>
+<td>string</td>
+<td>The image source for the banner image of the coupon.</td>
+</tr>
+<tr>
+<td>Title</td>
+<td>string</td>
+<td>The title of the coupon.</td>
+</tr>
+<tr>
+<td>Subtitle</td>
+<td>string</td>
+<td>The subtitle of the coupon.</td>
+</tr>
+<tr>
+<td>Description</td>
+<td>string</td>
+<td>The description of the coupon.</td>
+</tr>
+<tr>
+<td>ExpireDate</td>
+<td>DateTime</td>
+<td>The expiration date of the coupon.</td>
+</tr>
+<tr>
+<td>DiscountCode</td>
+<td>string</td>
+<td>The discount code associated with the current customer.</td>
+</tr>
+<tr>
+<td>RedirectLink</td>
+<td>string</td>
+<td>The redirect link associated with the coupon.</td>
+</tr>
+<tr>
+<td>DiscountType</td>
+<td>string</td>
+<td>The type of Discount (Coupon or Generic Webshop Discount).</td>
+</tr>
+<tr>
+<td>ComingSoon</td>
+<td>bool</td>
+<td>Whether or not the Discount is a Coming Soon Discount.</td>
+</tr>
+<tr>
+<td>IsSubscribed</td>
+<td>bool</td>
+<td>Whether or not the Customer is subscribed to a Coming Soon Discount.</td>
+</tr>
+</tbody></table>
+<h2 id='event'>Event</h2>
+<p>This endpoint is used for pushing discounts events, to track customer behavior
+<br>Event Types:<br>
+- discount_details_viewed <br>
+- discount_link_opened <br>
+- discount_code_copied <br></p>
+<div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> <span class="s1">'POST'</span> <span class="se">\</span>
+  <span class="s1">'https://viabill.viaads.dk/discounts/&lt;discountId&gt;/&lt;debtorAccountId&gt;'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'accept: text/plain'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'ApiKey: test'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
   <span class="nt">-d</span> <span class="s1">'{
-  "couponId": 0,
+  "discountId": 0,
   "customerEmail": "string",
   "eventType": "string",
   "eventDate": "2023-06-14T10:35:34.377Z"
@@ -440,16 +571,13 @@ You must replace <code>key123</code> with your personal API key.
   </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span><span class="w">
   </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Success"</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div>
-<p>This endpoint is used for pushing coupons events, to track customer behavior</p>
-<h3 id='http-request-3'>HTTP Request</h3>
-<p><code>POST https://coupons.viaads.dk/Coupons/event</code></p>
+</span></code></pre></div><h3 id='http-request-3'>HTTP Request</h3>
+<p><code>POST https://viabill.viaads.dk/discounts/event</code></p>
+
+<p><br></p>
 
       </div>
       <div class="dark-box">
-          <div class="lang-selector">
-                <a href="#" data-language-name="bash">bash</a>
-          </div>
       </div>
     </div>
   </body>
