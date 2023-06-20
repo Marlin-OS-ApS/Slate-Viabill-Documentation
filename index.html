@@ -325,18 +325,22 @@
       <div class="content">
         <h1 id='introduction'>Introduction</h1>
 <p>Welcome to the ViaAds - ViaBill API documentation.</p>
+
+<p>Production Url: https://viabill.viaads.dk
+<br>
+Development Url: https://dev.viabill.viaads.dk</p>
 <h1 id='authentication'>Authentication</h1>
 <p>To authenticate your requests to the ViaAds API, you will need to include your API key in the header of each request.</p>
 
-<p><code>ApiKey: key123</code></p>
+<p><code>ApiKey: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</code></p>
 
 <aside class="notice">
-You must replace <code>key123</code> with your personal API key.
+You must replace <code>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</code> with your personal API key.
 </aside>
 <h1 id='discounts-section'>Discounts Section</h1><h2 id='discounts'>Discounts</h2><div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> <span class="s1">'GET'</span> <span class="se">\</span>
   <span class="s1">'https://viabill.viaads.dk/discounts/&lt;email&gt;/&lt;size&gt;/&lt;page&gt;'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'accept: text/plain'</span> <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s1">'ApiKey: key123'</span>
+  <span class="nt">-H</span> <span class="s1">'ApiKey: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'</span>
 </code></pre></div>
 <blockquote>
 <p>JSON response example:</p>
@@ -435,7 +439,7 @@ You must replace <code>key123</code> with your personal API key.
 <div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> <span class="s1">'GET'</span> <span class="se">\</span>
   <span class="s1">'https://viabill.viaads.dk/discounts/ById/{discountId}/{email}'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'accept: text/plain'</span> <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s1">'ApiKey: key123'</span>
+  <span class="nt">-H</span> <span class="s1">'ApiKey: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'</span>
 </code></pre></div>
 <blockquote>
 <p>JSON response example:</p>
@@ -555,7 +559,7 @@ You must replace <code>key123</code> with your personal API key.
 <div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> <span class="s1">'POST'</span> <span class="se">\</span>
   <span class="s1">'https://viabill.viaads.dk/discounts/&lt;discountId&gt;/&lt;debtorAccountId&gt;'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'accept: text/plain'</span> <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s1">'ApiKey: test'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'ApiKey: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
   <span class="nt">-d</span> <span class="s1">'{
   "discountId": 0,
