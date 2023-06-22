@@ -437,7 +437,7 @@ You must replace <code>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</code> with your per
 <h2 id='discount'>Discount</h2>
 <p>This endpoint is used to retrieve a discount incl. details by its id.</p>
 <div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> <span class="s1">'GET'</span> <span class="se">\</span>
-  <span class="s1">'https://viabill.viaads.dk/discounts/ById/{discountId}/{email}'</span> <span class="se">\</span>
+  <span class="s1">'https://viabill.viaads.dk/discounts/ById/&lt;discountId&gt;/&lt;email&gt;'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'accept: text/plain'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'ApiKey: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'</span>
 </code></pre></div>
@@ -459,7 +459,7 @@ You must replace <code>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</code> with your per
   </span><span class="nl">"isSubscribed"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div><h3 id='http-request-2'>HTTP Request</h3>
-<p><code>POST https://viabill.viaads.dk/discounts/&lt;discountId&gt;/&lt;email&gt;</code></p>
+<p><code>GET https://viabill.viaads.dk/discounts/&lt;discountId&gt;/&lt;email&gt;</code></p>
 <h3 id='url-parameters-2'>URL Parameters</h3>
 <table><thead>
 <tr>
@@ -557,7 +557,7 @@ You must replace <code>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</code> with your per
 - discount_link_opened <br>
 - discount_code_copied <br></p>
 <div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> <span class="s1">'POST'</span> <span class="se">\</span>
-  <span class="s1">'https://viabill.viaads.dk/discounts/&lt;discountId&gt;/&lt;debtorAccountId&gt;'</span> <span class="se">\</span>
+  <span class="s1">'https://viabill.viaads.dk/discounts/event'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'accept: text/plain'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'ApiKey: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
