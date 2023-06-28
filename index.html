@@ -460,7 +460,7 @@ For more details about the object properties, refer to the <a href="#discountpag
 <tr>
 <td><code>ComingSoon</code></td>
 <td>boolean</td>
-<td>Indicates whether the discount is a &quot;Coming Soon&quot; discount. When set to true, it signifies that the discount is currently in a pre-launch or upcoming state, not yet available for use or redemption. This flag allows you to differentiate &quot;Coming Soon&quot; discounts from active ones and build anticipation among customers. When the discount becomes active, the value is set to false, indicating that it is available for use.</td>
+<td>Indicates whether the discount is a &quot;Coming Soon&quot; discount. When set to true, it signifies that the discount is currently in a pre-launch or upcoming state, not yet available for use or redemption. This flag allows you to differentiate &quot;Coming Soon&quot; discounts from active ones and build anticipation among customers. When the discount becomes active, the value is set to <code>false</code>, indicating that it is available for use.</td>
 </tr>
 </tbody></table>
 <h2 id='discount'>Discount</h2>
@@ -550,17 +550,17 @@ the <a href="#discount-properties">Properties</a> section.</p>
 <tr>
 <td>ExpireDate</td>
 <td>DateTime</td>
-<td>The expiration date of the discount. If the discount is a &quot;Coming Soon&quot; discount, this value should be hidden.</td>
+<td>The expiration date of the discount. If <code>ComingSoon</code> is <code>true</code>, the value should be ignored and not shown to the user</td>
 </tr>
 <tr>
 <td>DiscountType</td>
 <td>string</td>
-<td>The type of Discount. Possible values are &#39;Coupon&#39; or &#39;Discount&#39;. A &#39;Coupon&#39; indicates that there is a discount code to copy and use, while a &#39;Discount&#39; indicates that the webshop itself is running a percentage sale and no code is necessary.</td>
+<td>The type of Discount. Possible values are <code>Coupon</code> or <code>General</code>. <code>Coupon</code> indicates that there is a discount code to copy and use, while <code>General</code> indicates that the webshop itself is running a percentage sale and no code is necessary.</td>
 </tr>
 <tr>
 <td>DiscountCode</td>
 <td>string?</td>
-<td>The discount code associated with the current customer. This value is nullable and only set if the discount type is &#39;Coupon&#39;. For &#39;Discount&#39; type discounts, no code is necessary as the webshop itself is running a percentage sale. If the discount type is &#39;Discount&#39; or if it is a &quot;Coming Soon&quot; discount, this value will be null.</td>
+<td>The discount code associated with the current customer. This value is nullable and only set if the discount type is <code>Coupon</code>. For discounts of type <code>General</code>, no code is necessary as the webshop itself is running a percentage sale. If the <code>DiscountType</code> is <code>General</code> or if <code>ComingSoon</code> is <code>true</code>, this value will be <code>null</code>.</td>
 </tr>
 <tr>
 <td>RedirectLink</td>
@@ -570,24 +570,25 @@ the <a href="#discount-properties">Properties</a> section.</p>
 <tr>
 <td>ComingSoon</td>
 <td>bool</td>
-<td>Indicates whether the discount is a &quot;Coming Soon&quot; discount. When set to true, it signifies that the discount is currently in a pre-launch or upcoming state, not yet available for use or redemption. This flag allows you to differentiate &quot;Coming Soon&quot; discounts from active ones and build anticipation among customers. When the discount becomes active, the value is set to false, indicating that it is available for use.</td>
+<td>Indicates whether the discount is a &quot;Coming Soon&quot; discount. When set to true, it signifies that the discount is currently in a pre-launch or upcoming state, not yet available for use or redemption. This flag allows you to differentiate &quot;Coming Soon&quot; discounts from active ones and build anticipation among customers. When the discount becomes active, the value is set to <code>false</code>, indicating that it is available for use.</td>
 </tr>
 <tr>
 <td>IsSubscribed</td>
 <td>bool</td>
-<td>Whether or not the Customer is subscribed to a Coming Soon Discount.</td>
+<td>Whether or not the Customer is subscribed to a &quot;Coming Soon&quot; Discount.</td>
 </tr>
 </tbody></table>
-<h2 id='event'>Event</h2>
-<p>This endpoint is used for pushing discount events to track customer behavior.</p>
-
-<p><br>Event Types:<br></p>
+<h3 id='discounttype-property'>DiscountType Property</h3>
+<p>The DiscountType is an enum, which represents the type of discount. It can have the following values:</p>
 
 <ul>
-<li>discount_details_viewed: Indicates that the customer has viewed the details of the discount. This event is triggered when the customer accesses or interacts with the specific discount to learn more about its details, such as the title, description, or expiration date. <br></li>
-<li>discount_link_opened: Represents an event where the customer has opened the discount link. This event is triggered when the customer clicks on the provided link associated with the discount, redirecting them to a specific webpage or destination related to the discount offer.<br></li>
-<li>discount_code_copied: Signifies that the customer has copied the discount code. This event occurs when the customer selects and copies the discount code provided, typically for later use during the checkout process or when manually entering the code on a website or application. <br></li>
+<li><code>Coupon</code>: Indicates a discount that requires a discount code to be used. Customers need to apply the provided discount code during their purchase to obtain the discount.
+<br>
+<br></li>
+<li><code>General</code>: Represents a general discount offered by the webshop itself without the need for a discount code. The discount is automatically applied to eligible items during the checkout process.</li>
 </ul>
+<h2 id='event'>Event</h2>
+<p>This endpoint is used for pushing discount events to track customer behavior.</p>
 <div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> <span class="s1">'POST'</span> <span class="se">\</span>
   <span class="s1">'https://viabill.viaads.dk/discounts/event'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'accept: application/json'</span> <span class="se">\</span>
@@ -637,17 +638,17 @@ the <a href="#discount-properties">Properties</a> section.</p>
 <tr>
 <td></td>
 <td></td>
-<td>- &#39;discount_details_viewed&#39;: Indicates the event where the customer has viewed the details of the discount.</td>
+<td>- <code>discount_details_viewed</code>: Indicates the event where the customer has viewed the details of the discount.</td>
 </tr>
 <tr>
 <td></td>
 <td></td>
-<td>- &#39;discount_link_opened&#39;: Represents the event where the customer has opened the discount link.</td>
+<td>- <code>discount_link_opened</code>: Represents the event where the customer has opened the discount link.</td>
 </tr>
 <tr>
 <td></td>
 <td></td>
-<td>- &#39;discount_code_copied&#39;: Signifies the event where the customer has copied the discount code.</td>
+<td>- <code>discount_code_copied</code>: Signifies the event where the customer has copied the discount code.</td>
 </tr>
 <tr>
 <td>EventDate</td>
@@ -655,6 +656,14 @@ the <a href="#discount-properties">Properties</a> section.</p>
 <td>The date and time of the event in ISO 8601 format.</td>
 </tr>
 </tbody></table>
+<h3 id='eventtype-property'>EventType Property:</h3>
+<p>Each <code>EventType</code> indicates a specific customer behavior action related to the discount. The following event types is supported:</p>
+
+<ul>
+<li><code>discount_details_viewed</code>: Indicates that the customer has viewed the details of the discount. This event is triggered when the customer accesses or interacts with the specific discount to learn more about its details, such as the title, description, or expiration date. <br></li>
+<li><code>discount_link_opened</code>: Represents an event where the customer has opened the discount link. This event is triggered when the customer clicks on the provided link associated with the discount, redirecting them to a specific webpage or destination related to the discount offer.<br></li>
+<li><code>discount_code_copied</code>: Signifies that the customer has copied the discount code. This event occurs when the customer selects and copies the discount code provided, typically for later use during the checkout process or when manually entering the code on a website or application. <br></li>
+</ul>
 
 <p><br></p>
 
