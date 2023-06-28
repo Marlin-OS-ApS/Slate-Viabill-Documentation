@@ -305,7 +305,7 @@
             <a href="#authentication" class="toc-h1 toc-link" data-title="Authentication">Authentication</a>
           </li>
           <li>
-            <a href="#discounts-section" class="toc-h1 toc-link" data-title="Discounts Section">Discounts Section</a>
+            <a href="#endpoints" class="toc-h1 toc-link" data-title="Endpoints">Endpoints</a>
               <ul class="toc-list-h2">
                   <li>
                     <a href="#discounts" class="toc-h2 toc-link" data-title="Discounts">Discounts</a>
@@ -323,12 +323,30 @@
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
-        <h1 id='introduction'>Introduction</h1>
+        <style>
+  .get { 
+      background-color: #1E90FF; 
+      font-size: 13px; 
+      padding: 5px; 
+      border-radius: 5px; 
+      margin-right: 15px; 
+      color: #fff;
+  }
+  .post {
+      background-color: #32CD32; 
+      font-size: 13px; 
+      padding: 5px; 
+      border-radius: 5px; 
+      margin-right: 15px; 
+      color: #fff;
+  }
+</style>
+<h1 id='introduction'>Introduction</h1>
 <p>Welcome to the ViaAds - ViaBill API documentation.</p>
 
-<p>Production Url: https://viabill.viaads.dk
+<p>Production base Url: https://viabill.viaads.dk
 <br>
-Development Url: https://dev.viabill.viaads.dk</p>
+Development base Url: https://dev.viabill.viaads.dk</p>
 <h1 id='authentication'>Authentication</h1>
 <p>To authenticate your requests to the ViaAds API, you will need to include your API key in the header of each request.</p>
 
@@ -337,9 +355,9 @@ Development Url: https://dev.viabill.viaads.dk</p>
 <aside class="notice">
 You must replace <code>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</code> with your personal API key.
 </aside>
-<h1 id='discounts-section'>Discounts Section</h1><h2 id='discounts'>Discounts</h2><div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> <span class="s1">'GET'</span> <span class="se">\</span>
+<h1 id='endpoints'>Endpoints</h1><h2 id='discounts'>Discounts</h2><div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> <span class="s1">'GET'</span> <span class="se">\</span>
   <span class="s1">'https://viabill.viaads.dk/discounts/&lt;email&gt;/&lt;size&gt;/&lt;page&gt;'</span> <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s1">'accept: text/plain'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'accept: application/json'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'ApiKey: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'</span>
 </code></pre></div>
 <blockquote>
@@ -352,14 +370,20 @@ You must replace <code>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</code> with your per
       </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
       </span><span class="nl">"src"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"subtitle"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+      </span><span class="nl">"subtitle"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"comingSoon"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>This endpoint is used to retrieve a list of discounts based on the Customers Preferences</p>
+<p>This endpoint is used to retrieve a collection of discounts based on the customer&#39;s preferences. By sending a GET
+request to the specified URL with the appropriate parameters, a JSON response containing pagination
+information and an array of discount reference objects will be returned.
+For more details about the object properties, refer to the <a href="#discountpagination-properties">Properties</a> section.</p>
 <h3 id='http-request'>HTTP Request</h3>
-<p><code>GET https://viabill.viaads.dk/discounts/&lt;email&gt;/&lt;size&gt;/&lt;page&gt;</code></p>
+<h3>
+<span class="get">GET</span>/discounts/&lt;email&gt;/&lt;size&gt;/&lt;page&gt;
+</h3>
 <h3 id='url-parameters'>URL Parameters</h3>
 <table><thead>
 <tr>
@@ -369,19 +393,19 @@ You must replace <code>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</code> with your per
 </tr>
 </thead><tbody>
 <tr>
-<td>Email</td>
+<td><code>Email</code></td>
 <td>string</td>
-<td>The email of the customer requesting</td>
+<td>The email of the customer making the request.</td>
 </tr>
 <tr>
-<td>Size</td>
-<td>int</td>
-<td>How many elements to recevice pr. page</td>
+<td><code>Size</code></td>
+<td>integer</td>
+<td>The number of elements to receive per page.</td>
 </tr>
 <tr>
-<td>Page</td>
-<td>int</td>
-<td>The page number</td>
+<td><code>Page</code></td>
+<td>integer</td>
+<td>The page number to retrieve.</td>
 </tr>
 </tbody></table>
 
@@ -395,14 +419,14 @@ You must replace <code>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</code> with your per
 </tr>
 </thead><tbody>
 <tr>
-<td>LastPage</td>
+<td><code>LastPage</code></td>
 <td>integer</td>
 <td>The last page of the pagination.</td>
 </tr>
 <tr>
-<td>Discounts</td>
+<td><code>Discounts</code></td>
 <td>List&lt;DiscountRef&gt;</td>
-<td>The list of discount elements.</td>
+<td>A list of discount reference objects.</td>
 </tr>
 </tbody></table>
 <h3 id='discountref-properties'>DiscountRef Properties</h3>
@@ -414,31 +438,39 @@ You must replace <code>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</code> with your per
 </tr>
 </thead><tbody>
 <tr>
-<td>Id</td>
+<td><code>Id</code></td>
 <td>long</td>
-<td>The ID of the discount.</td>
+<td>The unique identifier of the discount.</td>
 </tr>
 <tr>
-<td>Src</td>
+<td><code>ImageSrc</code></td>
 <td>string</td>
-<td>The source of the discount.</td>
+<td>The source for the overview image of the discount.</td>
 </tr>
 <tr>
-<td>Title</td>
+<td><code>Title</code></td>
 <td>string</td>
 <td>The title of the discount.</td>
 </tr>
 <tr>
-<td>Subtitle</td>
+<td><code>Subtitle</code></td>
 <td>string</td>
 <td>The subtitle of the discount.</td>
 </tr>
+<tr>
+<td><code>ComingSoon</code></td>
+<td>boolean</td>
+<td>Indicates whether the discount is a &quot;Coming Soon&quot; discount. When set to true, it signifies that the discount is currently in a pre-launch or upcoming state, not yet available for use or redemption. This flag allows you to differentiate &quot;Coming Soon&quot; discounts from active ones and build anticipation among customers. When the discount becomes active, the value is set to false, indicating that it is available for use.</td>
+</tr>
 </tbody></table>
 <h2 id='discount'>Discount</h2>
-<p>This endpoint is used to retrieve a discount incl. details by its id.</p>
+<p>This endpoint allows you to retrieve detailed information about a discount by its ID. By sending a GET request to the
+specified URL with the discount ID and customer email as parameters, a JSON response containing
+properties related to the discount will be returned - For more details about the object properties, refer to
+the <a href="#discount-properties">Properties</a> section.</p>
 <div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> <span class="s1">'GET'</span> <span class="se">\</span>
   <span class="s1">'https://viabill.viaads.dk/discounts/&lt;discountId&gt;/&lt;email&gt;'</span> <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s1">'accept: text/plain'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'accept: application/json'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'ApiKey: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'</span>
 </code></pre></div>
 <blockquote>
@@ -446,7 +478,6 @@ You must replace <code>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</code> with your per
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"overviewImageSrc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"bannerImageSrc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"subtitle"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
@@ -459,7 +490,9 @@ You must replace <code>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</code> with your per
   </span><span class="nl">"isSubscribed"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div><h3 id='http-request-2'>HTTP Request</h3>
-<p><code>GET https://viabill.viaads.dk/discounts/&lt;discountId&gt;/&lt;email&gt;</code></p>
+<h3>
+<span class="get">GET</span>/discounts/&lt;discountId&gt;/&lt;email&gt;
+</h3>
 <h3 id='url-parameters-2'>URL Parameters</h3>
 <table><thead>
 <tr>
@@ -471,12 +504,12 @@ You must replace <code>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</code> with your per
 <tr>
 <td>DiscountId</td>
 <td>long</td>
-<td>The ID of the discount</td>
+<td>The ID of the discount you want to retrieve.</td>
 </tr>
 <tr>
 <td>Email</td>
 <td>string</td>
-<td>The email of the customer requesting</td>
+<td>The email of the customer making the request.</td>
 </tr>
 </tbody></table>
 
@@ -492,57 +525,52 @@ You must replace <code>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</code> with your per
 <tr>
 <td>Id</td>
 <td>long</td>
-<td>The identifier of the coupon.</td>
+<td>The unique identifier of the discount.</td>
 </tr>
 <tr>
-<td>OverviewImageSrc</td>
+<td>ImageSrc</td>
 <td>string</td>
-<td>The image source for the overview image of the coupon.</td>
-</tr>
-<tr>
-<td>BannerImageSrc</td>
-<td>string</td>
-<td>The image source for the banner image of the coupon.</td>
+<td>The source for the details image of the discount.</td>
 </tr>
 <tr>
 <td>Title</td>
 <td>string</td>
-<td>The title of the coupon.</td>
+<td>The title of the discount.</td>
 </tr>
 <tr>
 <td>Subtitle</td>
 <td>string</td>
-<td>The subtitle of the coupon.</td>
+<td>The subtitle of the discount.</td>
 </tr>
 <tr>
 <td>Description</td>
 <td>string</td>
-<td>The description of the coupon.</td>
+<td>The description of the discount.</td>
 </tr>
 <tr>
 <td>ExpireDate</td>
 <td>DateTime</td>
-<td>The expiration date of the coupon.</td>
-</tr>
-<tr>
-<td>DiscountCode</td>
-<td>string</td>
-<td>The discount code associated with the current customer.</td>
-</tr>
-<tr>
-<td>RedirectLink</td>
-<td>string</td>
-<td>The redirect link associated with the coupon.</td>
+<td>The expiration date of the discount. If the discount is a &quot;Coming Soon&quot; discount, this value should be hidden.</td>
 </tr>
 <tr>
 <td>DiscountType</td>
 <td>string</td>
-<td>The type of Discount (Coupon or Generic Webshop Discount).</td>
+<td>The type of Discount. Possible values are &#39;Coupon&#39; or &#39;Discount&#39;. A &#39;Coupon&#39; indicates that there is a discount code to copy and use, while a &#39;Discount&#39; indicates that the webshop itself is running a percentage sale and no code is necessary.</td>
+</tr>
+<tr>
+<td>DiscountCode</td>
+<td>string?</td>
+<td>The discount code associated with the current customer. This value is nullable and only set if the discount type is &#39;Coupon&#39;. For &#39;Discount&#39; type discounts, no code is necessary as the webshop itself is running a percentage sale. If the discount type is &#39;Discount&#39; or if it is a &quot;Coming Soon&quot; discount, this value will be null.</td>
+</tr>
+<tr>
+<td>RedirectLink</td>
+<td>string</td>
+<td>The redirect link associated with the discount.</td>
 </tr>
 <tr>
 <td>ComingSoon</td>
 <td>bool</td>
-<td>Whether or not the Discount is a Coming Soon Discount.</td>
+<td>Indicates whether the discount is a &quot;Coming Soon&quot; discount. When set to true, it signifies that the discount is currently in a pre-launch or upcoming state, not yet available for use or redemption. This flag allows you to differentiate &quot;Coming Soon&quot; discounts from active ones and build anticipation among customers. When the discount becomes active, the value is set to false, indicating that it is available for use.</td>
 </tr>
 <tr>
 <td>IsSubscribed</td>
@@ -551,14 +579,18 @@ You must replace <code>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</code> with your per
 </tr>
 </tbody></table>
 <h2 id='event'>Event</h2>
-<p>This endpoint is used for pushing discounts events, to track customer behavior
-<br>Event Types:<br>
-- discount_details_viewed <br>
-- discount_link_opened <br>
-- discount_code_copied <br></p>
+<p>This endpoint is used for pushing discount events to track customer behavior.</p>
+
+<p><br>Event Types:<br></p>
+
+<ul>
+<li>discount_details_viewed: Indicates that the customer has viewed the details of the discount. This event is triggered when the customer accesses or interacts with the specific discount to learn more about its details, such as the title, description, or expiration date. <br></li>
+<li>discount_link_opened: Represents an event where the customer has opened the discount link. This event is triggered when the customer clicks on the provided link associated with the discount, redirecting them to a specific webpage or destination related to the discount offer.<br></li>
+<li>discount_code_copied: Signifies that the customer has copied the discount code. This event occurs when the customer selects and copies the discount code provided, typically for later use during the checkout process or when manually entering the code on a website or application. <br></li>
+</ul>
 <div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> <span class="s1">'POST'</span> <span class="se">\</span>
   <span class="s1">'https://viabill.viaads.dk/discounts/event'</span> <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s1">'accept: text/plain'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'accept: application/json'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'ApiKey: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
   <span class="nt">-d</span> <span class="s1">'{
@@ -576,9 +608,58 @@ You must replace <code>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</code> with your per
   </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Success"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div><h3 id='http-request-3'>HTTP Request</h3>
-<p><code>POST https://viabill.viaads.dk/discounts/event</code></p>
+<h3>
+<span class="post">POST</span>/discounts/event
+</h3>
+<h3 id='request-body'>Request Body</h3>
+<table><thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>DiscountId</td>
+<td>long</td>
+<td>The ID of the discount for which the event occurred.</td>
+</tr>
+<tr>
+<td>CustomerEmail</td>
+<td>string</td>
+<td>The email of the customer associated with the event.</td>
+</tr>
+<tr>
+<td>EventType</td>
+<td>string</td>
+<td>The type of event. Possible values are:</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>- &#39;discount_details_viewed&#39;: Indicates the event where the customer has viewed the details of the discount.</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>- &#39;discount_link_opened&#39;: Represents the event where the customer has opened the discount link.</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>- &#39;discount_code_copied&#39;: Signifies the event where the customer has copied the discount code.</td>
+</tr>
+<tr>
+<td>EventDate</td>
+<td>string</td>
+<td>The date and time of the event in ISO 8601 format.</td>
+</tr>
+</tbody></table>
 
 <p><br></p>
+
+<p>The response of this endpoint will contain a status code and a message indicating the success or failure of the event
+submission.</p>
 
       </div>
       <div class="dark-box">
