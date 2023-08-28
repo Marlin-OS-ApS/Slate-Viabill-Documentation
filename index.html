@@ -305,7 +305,7 @@
             <a href="#authentication" class="toc-h1 toc-link" data-title="Authentication">Authentication</a>
           </li>
           <li>
-            <a href="#endpoints" class="toc-h1 toc-link" data-title="Endpoints">Endpoints</a>
+            <a href="#endpoints-discount" class="toc-h1 toc-link" data-title="Endpoints - Discount">Endpoints - Discount</a>
               <ul class="toc-list-h2">
                   <li>
                     <a href="#discounts" class="toc-h2 toc-link" data-title="Discounts">Discounts</a>
@@ -315,6 +315,26 @@
                   </li>
                   <li>
                     <a href="#event" class="toc-h2 toc-link" data-title="Event">Event</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#endpoints-in-app-shop" class="toc-h1 toc-link" data-title="Endpoints - In-app Shop">Endpoints - In-app Shop</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#products" class="toc-h2 toc-link" data-title="Products">Products</a>
+                  </li>
+                  <li>
+                    <a href="#product" class="toc-h2 toc-link" data-title="Product">Product</a>
+                  </li>
+                  <li>
+                    <a href="#toggle-favorite" class="toc-h2 toc-link" data-title="Toggle Favorite">Toggle Favorite</a>
+                  </li>
+                  <li>
+                    <a href="#categories-and-sub-categories" class="toc-h2 toc-link" data-title="Categories and Sub-categories">Categories and Sub-categories</a>
+                  </li>
+                  <li>
+                    <a href="#event-2" class="toc-h2 toc-link" data-title="Event">Event</a>
                   </li>
               </ul>
           </li>
@@ -340,6 +360,14 @@
       margin-right: 15px; 
       color: #fff;
   }
+  .put {
+      background-color: #f39200; 
+      font-size: 13px; 
+      padding: 5px; 
+      border-radius: 5px; 
+      margin-right: 15px; 
+      color: #fff;
+  }
 </style>
 <h1 id='introduction'>Introduction</h1>
 <p>Welcome to the ViaAds - ViaBill API documentation.</p>
@@ -355,7 +383,7 @@ Development base Url: https://dev.viabill.viaads.dk</p>
 <aside class="notice">
 You must replace <code>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</code> with your personal API key.
 </aside>
-<h1 id='endpoints'>Endpoints</h1><h2 id='discounts'>Discounts</h2><div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> <span class="s1">'GET'</span> <span class="se">\</span>
+<h1 id='endpoints-discount'>Endpoints - Discount</h1><h2 id='discounts'>Discounts</h2><div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> <span class="s1">'GET'</span> <span class="se">\</span>
   <span class="s1">'https://viabill.viaads.dk/discounts/&lt;email&gt;/&lt;size&gt;/&lt;page&gt;'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'accept: application/json'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'ApiKey: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'</span>
@@ -502,12 +530,12 @@ the <a href="#discount-properties">Properties</a> section.</p>
 </tr>
 </thead><tbody>
 <tr>
-<td>DiscountId</td>
+<td><code>DiscountId</code></td>
 <td>long</td>
 <td>The ID of the discount you want to retrieve.</td>
 </tr>
 <tr>
-<td>Email</td>
+<td><code>Email</code></td>
 <td>string</td>
 <td>The email of the customer making the request.</td>
 </tr>
@@ -523,57 +551,57 @@ the <a href="#discount-properties">Properties</a> section.</p>
 </tr>
 </thead><tbody>
 <tr>
-<td>Id</td>
+<td><code>Id</code></td>
 <td>long</td>
 <td>The unique identifier of the discount.</td>
 </tr>
 <tr>
-<td>ImageSrc</td>
+<td><code>ImageSrc</code></td>
 <td>string</td>
 <td>The source for the details image of the discount.</td>
 </tr>
 <tr>
-<td>Title</td>
+<td><code>Title</code></td>
 <td>string</td>
 <td>The title of the discount.</td>
 </tr>
 <tr>
-<td>Subtitle</td>
+<td><code>Subtitle</code></td>
 <td>string</td>
 <td>The subtitle of the discount.</td>
 </tr>
 <tr>
-<td>Description</td>
+<td><code>Description</code></td>
 <td>string</td>
 <td>The description of the discount.</td>
 </tr>
 <tr>
-<td>ExpireDate</td>
+<td><code>ExpireDate</code></td>
 <td>DateTime</td>
 <td>The expiration date of the discount. If <code>ComingSoon</code> is <code>true</code>, the value should be ignored and not shown to the user</td>
 </tr>
 <tr>
-<td>DiscountType</td>
+<td><code>DiscountType</code></td>
 <td>string</td>
 <td>The type of Discount. Possible values are <code>Coupon</code> or <code>General</code>. <code>Coupon</code> indicates that there is a discount code to copy and use, while <code>General</code> indicates that the webshop itself is running a percentage sale and no code is necessary.</td>
 </tr>
 <tr>
-<td>DiscountCode</td>
+<td><code>DiscountCode</code></td>
 <td>string?</td>
 <td>The discount code associated with the current customer. This value is nullable and only set if the discount type is <code>Coupon</code>. For discounts of type <code>General</code>, no code is necessary as the webshop itself is running a percentage sale. If the <code>DiscountType</code> is <code>General</code> or if <code>ComingSoon</code> is <code>true</code>, this value will be <code>null</code>.</td>
 </tr>
 <tr>
-<td>RedirectLink</td>
+<td><code>RedirectLink</code></td>
 <td>string</td>
 <td>The redirect link associated with the discount.</td>
 </tr>
 <tr>
-<td>ComingSoon</td>
+<td><code>ComingSoon</code></td>
 <td>bool</td>
 <td>Indicates whether the discount is a &quot;Coming Soon&quot; discount. When set to true, it signifies that the discount is currently in a pre-launch or upcoming state, not yet available for use or redemption. This flag allows you to differentiate &quot;Coming Soon&quot; discounts from active ones and build anticipation among customers. When the discount becomes active, the value is set to <code>false</code>, indicating that it is available for use.</td>
 </tr>
 <tr>
-<td>IsSubscribed</td>
+<td><code>IsSubscribed</code></td>
 <td>bool</td>
 <td>Whether or not the Customer is subscribed to a &quot;Coming Soon&quot; Discount.</td>
 </tr>
@@ -621,17 +649,17 @@ the <a href="#discount-properties">Properties</a> section.</p>
 </tr>
 </thead><tbody>
 <tr>
-<td>DiscountId</td>
+<td><code>DiscountId</code></td>
 <td>long</td>
 <td>The ID of the discount for which the event occurred.</td>
 </tr>
 <tr>
-<td>CustomerEmail</td>
+<td><code>CustomerEmail</code></td>
 <td>string</td>
 <td>The email of the customer associated with the event.</td>
 </tr>
 <tr>
-<td>EventType</td>
+<td><code>EventType</code></td>
 <td>string</td>
 <td>The type of event. Possible values are:</td>
 </tr>
@@ -651,7 +679,7 @@ the <a href="#discount-properties">Properties</a> section.</p>
 <td>- <code>discount_code_copied</code>: Signifies the event where the customer has copied the discount code.</td>
 </tr>
 <tr>
-<td>EventDate</td>
+<td><code>EventDate</code></td>
 <td>string</td>
 <td>The date and time of the event in ISO 8601 format.</td>
 </tr>
@@ -669,6 +697,496 @@ the <a href="#discount-properties">Properties</a> section.</p>
 
 <p>The response of this endpoint will contain a status code and a message indicating the success or failure of the event
 submission.</p>
+<h1 id='endpoints-in-app-shop'>Endpoints - In-app Shop</h1><h2 id='products'>Products</h2><div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> <span class="s1">'GET'</span> <span class="se">\</span>
+  <span class="s1">'https://viabill.viaads.dk/shop/products/&lt;email&gt;/&lt;category&gt;/&lt;size&gt;/&lt;page&gt;?search=&lt;UrlEncodedSearchString&gt;'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'accept: application/json'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'ApiKey: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'</span>
+</code></pre></div>
+<blockquote>
+<p>JSON response example:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"lastPage"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"products"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"src"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"normalPrice"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.00</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"salePrice"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.00</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"onSale"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"bestSeller"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"favored"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"includesVariants"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>This endpoint is used to retrieve a collection of products based on category and pagination parameters. 
+By sending a GET request to the specified URL with the appropriate parameters, a JSON response containing pagination 
+information and an array of product reference objects will be returned. For more details about the object properties, 
+refer to the <a href="#productpagination-properties">Properties</a> section.</p>
+<h3 id='http-request-4'>HTTP Request</h3>
+<h3>
+<span class="get">GET</span>/shop/products/&lt;email&gt;/&lt;category&gt;/&lt;size&gt;/&lt;page&gt;?search=&lt;UrlEncodedSearchString&gt;
+</h3>
+<h3 id='url-parameters-3'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>Email</code></td>
+<td>string</td>
+<td>The email of the customer making the request.</td>
+</tr>
+<tr>
+<td><code>Category</code></td>
+<td>string</td>
+<td>The current selected category/sub-category, including Recommended and Favorites - See <a href="#category-parameter">Category Parameter</a> for more details</td>
+</tr>
+<tr>
+<td><code>Size</code></td>
+<td>integer</td>
+<td>The number of elements to receive per page.</td>
+</tr>
+<tr>
+<td><code>Page</code></td>
+<td>integer</td>
+<td>The page number to retrieve.</td>
+</tr>
+<tr>
+<td><code>Search</code> (URL Encoded)</td>
+<td>string</td>
+<td>(Optional) URL-encoded search string to filter the products.</td>
+</tr>
+</tbody></table>
+
+<p><b>Note:</b> The search parameter must be URL-encoded to ensure that any special characters within the search string do not interfere with the URL.</p>
+<h3 id='category-parameter'>Category Parameter:</h3>
+<p>The <code>Category</code> parameter indicates the currently selected category or sub-category. Supported values include:</p>
+
+<ul>
+<li><code>Recommended</code>: Selected when the customer chooses the <code>Anbefalet</code> tab in the Categories list. This returns products most relevant to the customer<br></li>
+<li><code>Favorites</code>: Chosen when the customer selects the <code>Favoritter</code> tab. This returned the products the customer has marked as favorites.<br></li>
+<li>Main Category (e.g., <code>Gaming</code>): When the customer selects a primary category like <code>Gaming</code>, products within this category are returned.<br></li>
+<li>Sub-Category (e.g., <code>Spille konsoller</code>): If a sub-category within a main category like <code>Gaming</code> is chosen, products within this sub-category are returned.<br></li>
+</ul>
+
+<p><br></p>
+<h3 id='productpagination-properties'>ProductPagination Properties</h3>
+<table><thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>LastPage</code></td>
+<td>integer</td>
+<td>The last page of the pagination.</td>
+</tr>
+<tr>
+<td><code>Products</code></td>
+<td>List&lt;ProductRef&gt;</td>
+<td>A list of product reference objects.</td>
+</tr>
+</tbody></table>
+<h3 id='productref-properties'>ProductRef Properties</h3>
+<table><thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>Id</code></td>
+<td>string</td>
+<td>The unique identifier of the product.</td>
+</tr>
+<tr>
+<td><code>ImageSrc</code></td>
+<td>string</td>
+<td>The source for the overview image of the product.</td>
+</tr>
+<tr>
+<td><code>Name</code></td>
+<td>string</td>
+<td>The name of the product.</td>
+</tr>
+<tr>
+<td><code>NormalPrice</code></td>
+<td>decimal</td>
+<td>The normal price of the product.</td>
+</tr>
+<tr>
+<td><code>SalePrice</code></td>
+<td>decimal</td>
+<td>The sale price of the product.</td>
+</tr>
+<tr>
+<td><code>OnSale</code></td>
+<td>boolean</td>
+<td>Indicates whether the product is currently on sale.</td>
+</tr>
+<tr>
+<td><code>BestSeller</code></td>
+<td>boolean</td>
+<td>Indicates whether the product is valued to be a best seller product and therefore should be highlighted as such.</td>
+</tr>
+<tr>
+<td><code>Favored</code></td>
+<td>boolean</td>
+<td>Indicates whether the customer has favored the product.</td>
+</tr>
+<tr>
+<td><code>IncludesVariants</code></td>
+<td>boolean</td>
+<td>Indicates whether the product includes variants e.g. color or size.</td>
+</tr>
+</tbody></table>
+<h2 id='product'>Product</h2>
+<p>This endpoint provides detailed information about a specific product based on its unique identifier. 
+By sending a GET request to the specified URL with the appropriate parameters, a JSON response containing 
+comprehensive product details will be returned. 
+For more details about the object properties, refer to the <a href="#product-properties">Properties</a> section.</p>
+<div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> <span class="s1">'GET'</span> <span class="se">\</span>
+  <span class="s1">'https://viabill.viaads.dk/shop/products/&lt;productId&gt;/&lt;email&gt;'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'accept: application/json'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'ApiKey: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'</span>
+</code></pre></div>
+<blockquote>
+<p>JSON response example:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"productImages"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"string"</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"normalPrice"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.00</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"salePrice"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.00</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"merchantLogoSrc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"redirectLink"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"onSale"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"favored"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"includesVariants"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h3 id='http-request-5'>HTTP Request</h3>
+<h3>
+<span class="get">GET</span>/shop/products/&lt;productId&gt;/&lt;email&gt;
+</h3>
+<h3 id='url-parameters-4'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>ProductId</code></td>
+<td>string</td>
+<td>The Unique Identifier of the product to be returned.</td>
+</tr>
+<tr>
+<td><code>Email</code></td>
+<td>string</td>
+<td>The email of the customer making the request.</td>
+</tr>
+</tbody></table>
+
+<p><br></p>
+<h3 id='product-properties'>Product Properties</h3>
+<table><thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>Id</code></td>
+<td>string</td>
+<td>The unique identifier of the product.</td>
+</tr>
+<tr>
+<td><code>ProductImages</code></td>
+<td>List<string></td>
+<td>A list of URLs representing images for the product.</td>
+</tr>
+<tr>
+<td><code>Name</code></td>
+<td>string</td>
+<td>The name of the product.</td>
+</tr>
+<tr>
+<td><code>NormalPrice</code></td>
+<td>decimal</td>
+<td>The regular price of the product.</td>
+</tr>
+<tr>
+<td><code>SalePrice</code></td>
+<td>decimal</td>
+<td>The discounted price of the product if it&#39;s on sale.</td>
+</tr>
+<tr>
+<td><code>MerchantLogoSrc</code></td>
+<td>string</td>
+<td>The URL for the merchant&#39;s logo.</td>
+</tr>
+<tr>
+<td><code>RedirectLink</code></td>
+<td>string</td>
+<td>The direct link to the product on the merchant&#39;s website.</td>
+</tr>
+<tr>
+<td><code>OnSale</code></td>
+<td>boolean</td>
+<td>Indicates whether the product is currently on sale.</td>
+</tr>
+<tr>
+<td><code>Favored</code></td>
+<td>boolean</td>
+<td>Indicates if the customer has favored the product.</td>
+</tr>
+<tr>
+<td><code>IncludesVariants</code></td>
+<td>boolean</td>
+<td>Indicates if the product has various options e.g. size, color.</td>
+</tr>
+</tbody></table>
+<h2 id='toggle-favorite'>Toggle Favorite</h2>
+<p>This endpoint allows users to toggle the &quot;Favored&quot; status of a specific product, 
+either marking it as a favorite or removing it from their favorites. 
+By sending a PUT request to the specified URL, the product&#39;s &quot;Favored&quot; status will be updated based on its current value.
+For more details about the request body, refer to the <a href="#request-body-1">Request Body</a> section.</p>
+<div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> <span class="s1">'PUT'</span> <span class="se">\</span>
+  <span class="s1">'https://viabill.viaads.dk/shop/products/toggle-favorite/&lt;productId&gt;/&lt;email&gt;'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'accept: application/json'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'ApiKey: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'</span>
+</code></pre></div>
+<blockquote>
+<p>JSON response example:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"productId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"favored"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h3 id='http-request-6'>HTTP Request</h3>
+<h3>
+<span class="put">PUT</span>/shop/products/toggle-favorite
+</h3>
+<h3 id='request-body-2'>Request Body</h3>
+<table><thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>ProductId</code></td>
+<td>string</td>
+<td>The unique identifier of the product whose &quot;Favored&quot; status has been toggled.</td>
+</tr>
+<tr>
+<td><code>Email</code></td>
+<td>string</td>
+<td>The email of the customer making the request. This determines who&#39;s favouring the item in context.</td>
+</tr>
+<tr>
+<td><code>Favored</code></td>
+<td>boolean</td>
+<td>The updated &quot;Favored&quot; status of the product. True if the product is now a favorite, false otherwise.</td>
+</tr>
+</tbody></table>
+
+<p><b>Note:</b> If the product was previously marked as &quot;Favored&quot;, it will be toggled to not favored, and vice versa. Ensure that the user is authorized to perform this action before making the request.</p>
+<h2 id='categories-and-sub-categories'>Categories and Sub-categories</h2>
+<p>This endpoint is used to retrieve a list of main categories or their associated sub-categories. 
+By sending a GET request to the specified URL with the optional parentId parameter, a JSON response containing 
+either a list of main categories or their sub-categories will be returned, based on the presence of the parentId.
+For more details about the object properties, refer to the <a href="#category-properties">Properties</a> section.</p>
+<div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> <span class="s1">'GET'</span> <span class="se">\</span>
+  <span class="s1">'https://viabill.viaads.dk/shop/categories/&lt;ParentId&gt;'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'accept: application/json'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'ApiKey: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'</span>
+</code></pre></div>
+<blockquote>
+<p>JSON response example for main categories:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"imageSrc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>JSON response example for sub-categories:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"parentId"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"imageSrc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre></div><h3 id='http-request-7'>HTTP Request</h3>
+<h3>
+<span class="get">GET</span>/shop/categories/&lt;parentId&gt;
+</h3>
+<h3 id='url-parameters-5'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>ParentId</code></td>
+<td>int</td>
+<td>(Optional) The unique identifier of the main category. If provided, its associated sub-categories will be returned. If omitted, all main categories will be returned.</td>
+</tr>
+</tbody></table>
+
+<p><br></p>
+<h3 id='category-properties'>Category Properties</h3>
+<table><thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>Id</code></td>
+<td>int</td>
+<td>The unique identifier of the category or sub-category.</td>
+</tr>
+<tr>
+<td><code>ParentId</code></td>
+<td>int</td>
+<td>(Only for sub-categories) The unique identifier of the associated main category.</td>
+</tr>
+<tr>
+<td><code>Name</code></td>
+<td>string</td>
+<td>The name of the category or sub-category.</td>
+</tr>
+<tr>
+<td><code>ImageSrc</code></td>
+<td>string</td>
+<td>The source for the category or sub-category image.</td>
+</tr>
+</tbody></table>
+
+<p><b>Note: </b> If no ParentId is provided in the request, the endpoint will return a list of main categories. If a ParentId is provided, the endpoint will return the sub-categories associated with that main category.</p>
+<h2 id='event-2'>Event</h2>
+<p>This endpoint is used for pushing shop events to track customer behavior.</p>
+<div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> <span class="s1">'POST'</span> <span class="se">\</span>
+  <span class="s1">'https://viabill.viaads.dk/shop/event'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'accept: application/json'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'ApiKey: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  <span class="nt">-d</span> <span class="s1">'{
+  "productId": 0,
+  "customerEmail": "string",
+  "eventType": "string",
+  "eventDate": "2023-06-14T10:35:34.377Z"
+}'</span>
+</code></pre></div>
+<blockquote>
+<p>JSON response example:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Success"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h3 id='http-request-8'>HTTP Request</h3>
+<h3>
+<span class="post">POST</span>/shop/event
+</h3>
+<h3 id='request-body-3'>Request Body</h3>
+<table><thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>ProductId</code></td>
+<td>string</td>
+<td>(Optional) The Unique Identifier of the product related to the event.</td>
+</tr>
+<tr>
+<td><code>CustomerEmail</code></td>
+<td>string</td>
+<td>The email of the customer associated with the event.</td>
+</tr>
+<tr>
+<td><code>EventType</code></td>
+<td>string</td>
+<td>The type of event, which can be any of the following values:</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>- <code>product_viewed</code>:  When a customer views a product&#39;s details.</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>- <code>product_favorised</code>: When a customer favors a product.</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>- <code>product_unfavorised</code>: When a customer un-favors a product.</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>- <code>product_searched</code>:  When a customer searches for a product.</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>- <code>product_redirect</code>:  When a customer gets redirected</td>
+</tr>
+<tr>
+<td><code>EventDate</code></td>
+<td>string</td>
+<td>The date and time of the event in ISO 8601 format.</td>
+</tr>
+</tbody></table>
+
+<p><b>Note:</b> The ProductId is optional for events that are not directly related to a specific product, such as general searches or app-wide actions. However, for product-specific actions like viewing or favoriting, it&#39;s recommended to include the ProductId.</p>
+<h3 id='eventtype-property-2'>EventType Property:</h3>
+<p>The <code>EventType</code> property describes specific actions that customers might undertake in the in-app shop:</p>
+
+<ul>
+<li><code>product_viewed</code>: Triggered when the customer views the details of a product. <br></li>
+<li><code>product_favorised</code>: Triggered when a customer adds a product to their <code>Favorites</code>. <br></li>
+<li><code>product_unfavorised</code>: Triggered when a customer removes a product to their <code>Favorites</code>. <br></li>
+<li><code>product_searched</code>: Triggered when a customer searches for a product. <br></li>
+<li><code>product_redirect</code>: Triggered when a customer uses an in-app link or button to be redirected to the respective webshop associated with the product. <br></li>
+</ul>
+
+<p><br></p>
+
+<p>The response of this endpoint will provide a status code and a message that indicates the success or failure of the event submission.</p>
 
       </div>
       <div class="dark-box">
