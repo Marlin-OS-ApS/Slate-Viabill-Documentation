@@ -880,6 +880,20 @@ For more details about the object properties, refer to the <a href="#discountpag
 
 <p>The response of this endpoint will contain a status code and a message indicating the success or failure of the event
 submission.</p>
+
+<blockquote>
+<p>JSON response example for HTTP 400 Bad Request due to Incorrect EventType:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="mi">400</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"error"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bad Request"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Invalid EventType provided."</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre></div><h3 id='handling-errors-3'>Handling Errors</h3>
+<ul>
+<li>If an incorrect <code>EventType</code> is provided in the request, the server will return an HTTP 400 Bad Request along with an error message.</li>
+</ul>
 <h1 id='endpoints-in-app-shop'>Endpoints - In-app Shop</h1><h2 id='products'>Products</h2><div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> <span class="s1">'GET'</span> <span class="se">\</span>
   <span class="s1">'https://viabill.viaads.dk/shop/products/&lt;email&gt;/&lt;category&gt;/&lt;size&gt;/&lt;page&gt;?search=&lt;UrlEncodedSearchString&gt;'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'accept: application/json'</span> <span class="se">\</span>
@@ -1056,7 +1070,7 @@ refer to the <a href="#productpagination-properties">Properties</a> section.</p>
   </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Invalid category slug provided."</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
-</span></code></pre></div><h3 id='handling-errors-3'>Handling Errors</h3>
+</span></code></pre></div><h3 id='handling-errors-4'>Handling Errors</h3>
 <ul>
 <li>If no products match the given parameters (either due to a high page number, a non-matching search query, or an inexistent email), the response will return an empty product list.</li>
 <li>If an incorrect category slug is provided in the request, the server will return an HTTP 400 Bad Request along with an error message.</li>
@@ -1182,7 +1196,7 @@ For more details about the object properties, refer to the <a href="#product-pro
   </span><span class="nl">"error"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Not Found"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Invalid productId or email provided."</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h3 id='handling-errors-4'>Handling Errors</h3>
+</span></code></pre></div><h3 id='handling-errors-5'>Handling Errors</h3>
 <ul>
 <li>If an invalid <code>productId</code> or <code>email</code> is provided, a HTTP 404 Not Found will be returned.</li>
 </ul>
@@ -1336,7 +1350,7 @@ For more details about the object properties, refer to the <a href="#category-pr
   </span><span class="nl">"error"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Not Found"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Invalid parentId provided."</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h3 id='handling-errors-5'>Handling Errors</h3>
+</span></code></pre></div><h3 id='handling-errors-6'>Handling Errors</h3>
 <ul>
 <li>If the provided <code>parentId</code> does not contain any sub-categories, an empty list will be returned.</li>
 <li>If an invalid <code>parentId</code> is provided, a HTTP 404 Not Found will be returned.</li>
@@ -1436,6 +1450,20 @@ For more details about the object properties, refer to the <a href="#category-pr
 <p><br></p>
 
 <p>The response of this endpoint will provide a status code and a message that indicates the success or failure of the event submission.</p>
+
+<blockquote>
+<p>JSON response example for HTTP 400 Bad Request due to Incorrect EventType:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="mi">400</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"error"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bad Request"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Invalid EventType provided."</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre></div><h3 id='handling-errors-7'>Handling Errors</h3>
+<ul>
+<li>If an incorrect <code>EventType</code> is provided in the request, the server will return an HTTP 400 Bad Request along with an error message.</li>
+</ul>
 
       </div>
       <div class="dark-box">
