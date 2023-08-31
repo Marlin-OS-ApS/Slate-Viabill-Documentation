@@ -314,6 +314,12 @@
                     <a href="#discount" class="toc-h2 toc-link" data-title="Discount">Discount</a>
                   </li>
                   <li>
+                    <a href="#toggle-favorite" class="toc-h2 toc-link" data-title="Toggle Favorite">Toggle Favorite</a>
+                  </li>
+                  <li>
+                    <a href="#favorites" class="toc-h2 toc-link" data-title="Favorites">Favorites</a>
+                  </li>
+                  <li>
                     <a href="#event" class="toc-h2 toc-link" data-title="Event">Event</a>
                   </li>
               </ul>
@@ -328,7 +334,7 @@
                     <a href="#product" class="toc-h2 toc-link" data-title="Product">Product</a>
                   </li>
                   <li>
-                    <a href="#toggle-favorite" class="toc-h2 toc-link" data-title="Toggle Favorite">Toggle Favorite</a>
+                    <a href="#toggle-favorite-2" class="toc-h2 toc-link" data-title="Toggle Favorite">Toggle Favorite</a>
                   </li>
                   <li>
                     <a href="#categories-and-sub-categories" class="toc-h2 toc-link" data-title="Categories and Sub-categories">Categories and Sub-categories</a>
@@ -399,7 +405,8 @@ You must replace <code>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</code> with your per
       </span><span class="nl">"src"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"subtitle"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"comingSoon"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+      </span><span class="nl">"comingSoon"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"favored"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
@@ -490,6 +497,11 @@ For more details about the object properties, refer to the <a href="#discountpag
 <td>boolean</td>
 <td>Indicates whether the discount is a &quot;Coming Soon&quot; discount. When set to true, it signifies that the discount is currently in a pre-launch or upcoming state, not yet available for use or redemption. This flag allows you to differentiate &quot;Coming Soon&quot; discounts from active ones and build anticipation among customers. When the discount becomes active, the value is set to <code>false</code>, indicating that it is available for use.</td>
 </tr>
+<tr>
+<td><code>Favored</code></td>
+<td>boolean</td>
+<td>Whether or not the Customer has Favored the Discount.</td>
+</tr>
 </tbody></table>
 <h2 id='discount'>Discount</h2>
 <p>This endpoint allows you to retrieve detailed information about a discount by its ID. By sending a GET request to the
@@ -515,7 +527,8 @@ the <a href="#discount-properties">Properties</a> section.</p>
   </span><span class="nl">"redirectLink"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"discountType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"comingSoon"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"isSubscribed"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+  </span><span class="nl">"isSubscribed"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"favored"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div><h3 id='http-request-2'>HTTP Request</h3>
 <h3>
@@ -597,13 +610,18 @@ the <a href="#discount-properties">Properties</a> section.</p>
 </tr>
 <tr>
 <td><code>ComingSoon</code></td>
-<td>bool</td>
+<td>boolean</td>
 <td>Indicates whether the discount is a &quot;Coming Soon&quot; discount. When set to true, it signifies that the discount is currently in a pre-launch or upcoming state, not yet available for use or redemption. This flag allows you to differentiate &quot;Coming Soon&quot; discounts from active ones and build anticipation among customers. When the discount becomes active, the value is set to <code>false</code>, indicating that it is available for use.</td>
 </tr>
 <tr>
 <td><code>IsSubscribed</code></td>
-<td>bool</td>
+<td>boolean</td>
 <td>Whether or not the Customer is subscribed to a &quot;Coming Soon&quot; Discount.</td>
+</tr>
+<tr>
+<td><code>Favored</code></td>
+<td>boolean</td>
+<td>Whether or not the Customer has Favored the Discount.</td>
 </tr>
 </tbody></table>
 <h3 id='discounttype-property'>DiscountType Property</h3>
@@ -614,6 +632,159 @@ the <a href="#discount-properties">Properties</a> section.</p>
 <br>
 <br></li>
 <li><code>General</code>: Represents a general discount offered by the webshop itself without the need for a discount code. The discount is automatically applied to eligible items during the checkout process.</li>
+</ul>
+<h2 id='toggle-favorite'>Toggle Favorite</h2>
+<p>This endpoint allows users to toggle the &quot;Favored&quot; status of a specific discount,
+either marking it as a favorite or removing it from their favorites.
+By sending a PUT request to the specified URL, the discount&#39;s &quot;Favored&quot; status will be updated based on its current value.
+For more details about the request body, refer to the <a href="#request-body-1">Request Body</a> section.</p>
+<div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> <span class="s1">'PUT'</span> <span class="se">\</span>
+  <span class="s1">'https://viabill.viaads.dk/discounts/toggle-favorite'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'accept: application/json'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'ApiKey: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'</span> <span class="se">\</span>
+  <span class="nt">-d</span> <span class="s1">'{
+    "discountId": 0,
+    "Email": "string",
+    "Favored": true
+  }'</span>
+
+</code></pre></div>
+<blockquote>
+<p>JSON response example:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"discountId"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"favored"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h3 id='http-request-3'>HTTP Request</h3>
+<h3>
+<span class="put">PUT</span>/discounts/toggle-favorite
+</h3>
+<h3 id='request-body'>Request Body</h3>
+<table><thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>DiscountId</code></td>
+<td>string</td>
+<td>The unique identifier of the discount whose &quot;Favored&quot; status has been toggled.</td>
+</tr>
+<tr>
+<td><code>Email</code></td>
+<td>string</td>
+<td>The email of the customer making the request. This determines who&#39;s favouring the item in context.</td>
+</tr>
+<tr>
+<td><code>Favored</code></td>
+<td>boolean</td>
+<td>The updated &quot;Favored&quot; status of the discount. True if the discount is now a favorite, false otherwise.</td>
+</tr>
+</tbody></table>
+
+<p><b>Note:</b> If the discount was previously marked as &quot;Favored&quot;, it will be toggled to not favored, and vice versa. Ensure that the user is authorized to perform this action before making the request.</p>
+
+<blockquote>
+<p>JSON response example for HTTP 400 Bad Request due to Incorrect DiscountId:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="mi">400</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"error"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bad Request"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Invalid discountId provided."</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre></div>
+<blockquote>
+<p>JSON response example for HTTP 400 Bad Request due to Incorrect Email:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="mi">400</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"error"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bad Request"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Invalid email provided."</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre></div><h3 id='handling-errors'>Handling Errors</h3>
+<ul>
+<li>If an incorrect <code>discountId</code> is provided in the request, the server will return an HTTP 400 Bad Request along with an error message.</li>
+<li>If an incorrect <code>email</code> is provided in the request, the server will return an HTTP 400 Bad Request along with an error message.</li>
+</ul>
+<h2 id='favorites'>Favorites</h2><div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> <span class="s1">'GET'</span> <span class="se">\</span>
+  <span class="s1">'https://viabill.viaads.dk/discounts/&lt;email&gt;/favorites/&lt;size&gt;/&lt;page&gt;'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'accept: application/json'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'ApiKey: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'</span>
+</code></pre></div>
+<blockquote>
+<p>JSON response example:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"lastPage"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"discounts"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"src"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"subtitle"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"comingSoon"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"favored"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>This endpoint is used to retrieve a collection of discounts which the customer has chosen to favor. 
+By sending a GET request to the specified URL with the appropriate parameters, a JSON response containing pagination
+information and an array of favored discount reference objects will be returned.
+For more details about the object properties, refer to the <a href="#discountpagination-properties">Properties</a> section.</p>
+<h3 id='http-request-4'>HTTP Request</h3>
+<h3>
+<span class="get">GET</span>/discounts/&lt;email&gt;/favorites/&lt;size&gt;/&lt;page&gt;
+</h3>
+<h3 id='url-parameters-3'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>Email</code></td>
+<td>string</td>
+<td>The email of the customer making the request.</td>
+</tr>
+<tr>
+<td><code>Size</code></td>
+<td>integer</td>
+<td>The number of elements to receive per page.</td>
+</tr>
+<tr>
+<td><code>Page</code></td>
+<td>integer</td>
+<td>The page number to retrieve.</td>
+</tr>
+</tbody></table>
+
+<p><br></p>
+
+<blockquote>
+<p>JSON response example for No Favorites:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">[]</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>JSON response example for HTTP 404 Not Found:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="mi">404</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"error"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Not Found"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Invalid email provided."</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h3 id='handling-errors-2'>Handling Errors</h3>
+<ul>
+<li>If the customer does not have any favored discounts, an empty list will be returned.</li>
+<li>If an invalid <code>email</code> is provided, a HTTP 404 Not Found will be returned.</li>
 </ul>
 <h2 id='event'>Event</h2>
 <p>This endpoint is used for pushing discount events to track customer behavior.</p>
@@ -636,11 +807,11 @@ the <a href="#discount-properties">Properties</a> section.</p>
   </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span><span class="w">
   </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Success"</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h3 id='http-request-3'>HTTP Request</h3>
+</span></code></pre></div><h3 id='http-request-5'>HTTP Request</h3>
 <h3>
 <span class="post">POST</span>/discounts/event
 </h3>
-<h3 id='request-body'>Request Body</h3>
+<h3 id='request-body-2'>Request Body</h3>
 <table><thead>
 <tr>
 <th>Property</th>
@@ -679,6 +850,16 @@ the <a href="#discount-properties">Properties</a> section.</p>
 <td>- <code>discount_code_copied</code>: Signifies the event where the customer has copied the discount code.</td>
 </tr>
 <tr>
+<td></td>
+<td></td>
+<td>- <code>discount_favorised</code>: Signifies the event where the customer has favored the discount.</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>- <code>discount_unfavorised</code>: Signifies the event where the customer has unfavored the discount.</td>
+</tr>
+<tr>
 <td><code>EventDate</code></td>
 <td>string</td>
 <td>The date and time of the event in ISO 8601 format.</td>
@@ -691,6 +872,8 @@ the <a href="#discount-properties">Properties</a> section.</p>
 <li><code>discount_details_viewed</code>: Indicates that the customer has viewed the details of the discount. This event is triggered when the customer accesses or interacts with the specific discount to learn more about its details, such as the title, description, or expiration date. <br></li>
 <li><code>discount_link_opened</code>: Represents an event where the customer has opened the discount link. This event is triggered when the customer clicks on the provided link associated with the discount, redirecting them to a specific webpage or destination related to the discount offer.<br></li>
 <li><code>discount_code_copied</code>: Signifies that the customer has copied the discount code. This event occurs when the customer selects and copies the discount code provided, typically for later use during the checkout process or when manually entering the code on a website or application. <br></li>
+<li><code>discount_favorised</code>:  Indicates that the customer has added the discount to their favorites. This event is triggered when the customer shows interest in revisiting or keeping track of the discount by marking it as a favorite. <br></li>
+<li><code>discount_unfavorised</code>: Represents the action where the customer has removed the discount from their favorites. This event occurs when the customer decides they are no longer interested in tracking or revisiting the discount and therefore removes it from their favorites. <br></li>
 </ul>
 
 <p><br></p>
@@ -703,7 +886,9 @@ submission.</p>
   <span class="nt">-H</span> <span class="s1">'ApiKey: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'</span>
 </code></pre></div>
 <blockquote>
-<p>JSON response example:</p>
+<p>Example Responses:</p>
+
+<p>JSON response example for Successful Product Retrieval:</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"lastPage"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
@@ -722,15 +907,18 @@ submission.</p>
   </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>This endpoint is used to retrieve a collection of products based on category and pagination parameters. 
-By sending a GET request to the specified URL with the appropriate parameters, a JSON response containing pagination 
-information and an array of product reference objects will be returned. For more details about the object properties, 
+<p>This endpoint is used to retrieve a collection of products based on category and pagination parameters.
+By sending a GET request to the specified URL with the appropriate parameters, a JSON response containing pagination
+information and an array of product reference objects will be returned. 
+If no results match the search criteria (either because of a page number too high, a search query that doesn&#39;t match anything, or an inexistent email), 
+an empty list of products will be returned. If an incorrect category slug is used, an HTTP 400 Bad Request will be returned.
+For more details about the object properties, 
 refer to the <a href="#productpagination-properties">Properties</a> section.</p>
-<h3 id='http-request-4'>HTTP Request</h3>
+<h3 id='http-request-6'>HTTP Request</h3>
 <h3>
 <span class="get">GET</span>/shop/products/&lt;email&gt;/&lt;category&gt;/&lt;size&gt;/&lt;page&gt;?search=&lt;UrlEncodedSearchString&gt;
 </h3>
-<h3 id='url-parameters-3'>URL Parameters</h3>
+<h3 id='url-parameters-4'>URL Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -746,7 +934,7 @@ refer to the <a href="#productpagination-properties">Properties</a> section.</p>
 <tr>
 <td><code>Category</code></td>
 <td>string</td>
-<td>The current selected category/sub-category, including Recommended and Favorites - See <a href="#category-parameter">Category Parameter</a> for more details</td>
+<td>The current selected category/sub-category, including Recommended and Favorites - See <a href="#category-parameter">Category Parameter</a> for more details.  If an incorrect slug is used, you will receive an HTTP 400 Bad Request.</td>
 </tr>
 <tr>
 <td><code>Size</code></td>
@@ -850,6 +1038,29 @@ refer to the <a href="#productpagination-properties">Properties</a> section.</p>
 <td>Indicates whether the product includes variants e.g. color or size.</td>
 </tr>
 </tbody></table>
+
+<blockquote>
+<p>JSON response example for No Matching Product:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"lastPage"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"products"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>JSON response example for HTTP 400 Bad Request due to Incorrect Category Slug:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="mi">400</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"error"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bad Request"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Invalid category slug provided."</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre></div><h3 id='handling-errors-3'>Handling Errors</h3>
+<ul>
+<li>If no products match the given parameters (either due to a high page number, a non-matching search query, or an inexistent email), the response will return an empty product list.</li>
+<li>If an incorrect category slug is provided in the request, the server will return an HTTP 400 Bad Request along with an error message.</li>
+</ul>
 <h2 id='product'>Product</h2>
 <p>This endpoint provides detailed information about a specific product based on its unique identifier. 
 By sending a GET request to the specified URL with the appropriate parameters, a JSON response containing 
@@ -861,7 +1072,7 @@ For more details about the object properties, refer to the <a href="#product-pro
   <span class="nt">-H</span> <span class="s1">'ApiKey: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'</span>
 </code></pre></div>
 <blockquote>
-<p>JSON response example:</p>
+<p>JSON response example for Successful Product Retrieval:</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
@@ -878,11 +1089,11 @@ For more details about the object properties, refer to the <a href="#product-pro
   </span><span class="nl">"favored"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
   </span><span class="nl">"includesVariants"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h3 id='http-request-5'>HTTP Request</h3>
+</span></code></pre></div><h3 id='http-request-7'>HTTP Request</h3>
 <h3>
 <span class="get">GET</span>/shop/products/&lt;productId&gt;/&lt;email&gt;
 </h3>
-<h3 id='url-parameters-4'>URL Parameters</h3>
+<h3 id='url-parameters-5'>URL Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -962,15 +1173,34 @@ For more details about the object properties, refer to the <a href="#product-pro
 <td>Indicates if the product has various options e.g. size, color.</td>
 </tr>
 </tbody></table>
-<h2 id='toggle-favorite'>Toggle Favorite</h2>
+
+<blockquote>
+<p>JSON response example for HTTP 404 Not Found:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="mi">404</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"error"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Not Found"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Invalid productId or email provided."</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h3 id='handling-errors-4'>Handling Errors</h3>
+<ul>
+<li>If an invalid <code>productId</code> or <code>email</code> is provided, a HTTP 404 Not Found will be returned.</li>
+</ul>
+<h2 id='toggle-favorite-2'>Toggle Favorite</h2>
 <p>This endpoint allows users to toggle the &quot;Favored&quot; status of a specific product, 
 either marking it as a favorite or removing it from their favorites. 
 By sending a PUT request to the specified URL, the product&#39;s &quot;Favored&quot; status will be updated based on its current value.
-For more details about the request body, refer to the <a href="#request-body-1">Request Body</a> section.</p>
+For more details about the request body, refer to the <a href="#request-body-3">Request Body</a> section.</p>
 <div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> <span class="s1">'PUT'</span> <span class="se">\</span>
-  <span class="s1">'https://viabill.viaads.dk/shop/products/toggle-favorite/&lt;productId&gt;/&lt;email&gt;'</span> <span class="se">\</span>
+  <span class="s1">'https://viabill.viaads.dk/shop/products/toggle-favorite'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'accept: application/json'</span> <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s1">'ApiKey: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'</span>
+  <span class="nt">-H</span> <span class="s1">'ApiKey: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'</span> <span class="se">\</span>
+  <span class="nt">-d</span> <span class="s1">'{
+    "productId": "string",
+    "Email": "string",
+    "Favored": true
+  }'</span>
+
 </code></pre></div>
 <blockquote>
 <p>JSON response example:</p>
@@ -979,11 +1209,11 @@ For more details about the request body, refer to the <a href="#request-body-1">
   </span><span class="nl">"productId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"favored"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h3 id='http-request-6'>HTTP Request</h3>
+</span></code></pre></div><h3 id='http-request-8'>HTTP Request</h3>
 <h3>
 <span class="put">PUT</span>/shop/products/toggle-favorite
 </h3>
-<h3 id='request-body-2'>Request Body</h3>
+<h3 id='request-body-3'>Request Body</h3>
 <table><thead>
 <tr>
 <th>Property</th>
@@ -1041,11 +1271,11 @@ For more details about the object properties, refer to the <a href="#category-pr
     </span><span class="nl">"imageSrc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">]</span><span class="w">
-</span></code></pre></div><h3 id='http-request-7'>HTTP Request</h3>
+</span></code></pre></div><h3 id='http-request-9'>HTTP Request</h3>
 <h3>
 <span class="get">GET</span>/shop/categories/&lt;parentId&gt;
 </h3>
-<h3 id='url-parameters-5'>URL Parameters</h3>
+<h3 id='url-parameters-6'>URL Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1092,6 +1322,25 @@ For more details about the object properties, refer to the <a href="#category-pr
 </tbody></table>
 
 <p><b>Note: </b> If no ParentId is provided in the request, the endpoint will return a list of main categories. If a ParentId is provided, the endpoint will return the sub-categories associated with that main category.</p>
+
+<blockquote>
+<p>JSON response example for No Sub-categories:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">[]</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>JSON response example for HTTP 404 Not Found:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="mi">404</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"error"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Not Found"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Invalid parentId provided."</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h3 id='handling-errors-5'>Handling Errors</h3>
+<ul>
+<li>If the provided <code>parentId</code> does not contain any sub-categories, an empty list will be returned.</li>
+<li>If an invalid <code>parentId</code> is provided, a HTTP 404 Not Found will be returned.</li>
+</ul>
 <h2 id='event-2'>Event</h2>
 <p>This endpoint is used for pushing shop events to track customer behavior.</p>
 <div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> <span class="s1">'POST'</span> <span class="se">\</span>
@@ -1100,11 +1349,11 @@ For more details about the object properties, refer to the <a href="#category-pr
   <span class="nt">-H</span> <span class="s1">'ApiKey: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
   <span class="nt">-d</span> <span class="s1">'{
-  "productId": 0,
-  "customerEmail": "string",
-  "eventType": "string",
-  "eventDate": "2023-06-14T10:35:34.377Z"
-}'</span>
+    "productId": 0,
+    "customerEmail": "string",
+    "eventType": "string",
+    "eventDate": "2023-06-14T10:35:34.377Z"
+  }'</span>
 </code></pre></div>
 <blockquote>
 <p>JSON response example:</p>
@@ -1113,11 +1362,11 @@ For more details about the object properties, refer to the <a href="#category-pr
   </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span><span class="w">
   </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Success"</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h3 id='http-request-8'>HTTP Request</h3>
+</span></code></pre></div><h3 id='http-request-10'>HTTP Request</h3>
 <h3>
 <span class="post">POST</span>/shop/event
 </h3>
-<h3 id='request-body-3'>Request Body</h3>
+<h3 id='request-body-4'>Request Body</h3>
 <table><thead>
 <tr>
 <th>Property</th>
