@@ -314,6 +314,9 @@
                     <a href="#discount" class="toc-h2 toc-link" data-title="Discount">Discount</a>
                   </li>
                   <li>
+                    <a href="#campaign-discounts" class="toc-h2 toc-link" data-title="Campaign Discounts">Campaign Discounts</a>
+                  </li>
+                  <li>
                     <a href="#toggle-favorite" class="toc-h2 toc-link" data-title="Toggle Favorite">Toggle Favorite</a>
                   </li>
                   <li>
@@ -390,7 +393,7 @@ Development base Url: https://dev.viabill.viaads.dk</p>
 You must replace <code>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</code> with your personal API key.
 </aside>
 <h1 id='endpoints-discount'>Endpoints - Discount</h1><h2 id='discounts'>Discounts</h2><div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> <span class="s1">'GET'</span> <span class="se">\</span>
-  <span class="s1">'https://viabill.viaads.dk/discounts/&lt;email&gt;/&lt;size&gt;/&lt;page&gt;'</span> <span class="se">\</span>
+  <span class="s1">'https://viabill.viaads.dk/discounts/&lt;email&gt;/&lt;size&gt;/&lt;page&gt;?campaign=QUERY_NAME'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'accept: application/json'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'ApiKey: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'</span>
 </code></pre></div>
@@ -411,13 +414,15 @@ You must replace <code>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</code> with your per
   </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>This endpoint is used to retrieve a collection of discounts based on the customer&#39;s preferences. By sending a GET
-request to the specified URL with the appropriate parameters, a JSON response containing pagination
-information and an array of discount reference objects will be returned.
+<p>Retrieve a collection of discounts tailored to the customer&#39;s preferences. 
+If a specific campaign is specified in the request, the discounts associated with that campaign will be returned. 
+If no campaign is provided, all available discounts are returned. 
+Send a GET request to the specified URL with the appropriate parameters to receive 
+a JSON response containing pagination information and an array of discount reference objects.
 For more details about the object properties, refer to the <a href="#discountpagination-properties">Properties</a> section.</p>
 <h3 id='http-request'>HTTP Request</h3>
 <h3>
-<span class="get">GET</span>/discounts/&lt;email&gt;/&lt;size&gt;/&lt;page&gt;
+<span class="get">GET</span>/discounts/&lt;email&gt;/&lt;size&gt;/&lt;page&gt;?campaign=QUERY_NAME
 </h3>
 <h3 id='url-parameters'>URL Parameters</h3>
 <table><thead>
@@ -443,6 +448,22 @@ For more details about the object properties, refer to the <a href="#discountpag
 <td>The page number to retrieve.</td>
 </tr>
 </tbody></table>
+<h3 id='query-parameters'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>Campaign</code></td>
+<td>string</td>
+<td>The name of the campaign associated with the desired discounts.</td>
+</tr>
+</tbody></table>
+
+<p><b>Note:</b> If no Campaign is provided, all discounts will be returned.</p>
 
 <p><br></p>
 <h3 id='discountpagination-properties'>DiscountPagination Properties</h3>
@@ -633,6 +654,62 @@ the <a href="#discount-properties">Properties</a> section.</p>
 <br></li>
 <li><code>General</code>: Represents a general discount offered by the webshop itself without the need for a discount code. The discount is automatically applied to eligible items during the checkout process.</li>
 </ul>
+<h2 id='campaign-discounts'>Campaign Discounts</h2><div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> <span class="s1">'GET'</span> <span class="se">\</span>
+  <span class="s1">'https://viabill.viaads.dk/discounts/campaign'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'accept: application/json'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'ApiKey: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'</span>
+</code></pre></div>
+<blockquote>
+<p>JSON response example:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"campaign"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"bannerImageUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://example.com/image.jpg"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"queryName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BLACK_FRIDAY"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>This endpoint is used to retrieve details about the active campaign associated with discounts. 
+By sending a GET request to the specified URL, a JSON response containing details of the campaign will be returned.
+If no active campaign is found, a 404 NOT FOUND error will be returned.
+For more details about the object properties, refer to the <a href="#discountpagination-properties">Properties</a> section.</p>
+<h3 id='http-request-3'>HTTP Request</h3>
+<h3>
+<span class="get">GET</span>/discounts/campaign
+</h3>
+<h3 id='campaign-properties'>Campaign Properties</h3>
+<table><thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>BannerImageUrl</code></td>
+<td>string</td>
+<td>The URL for the banner image associated with the campaign.</td>
+</tr>
+<tr>
+<td><code>QueryName</code></td>
+<td>string</td>
+<td>The name used in the query to filter for this specific campaign.</td>
+</tr>
+</tbody></table>
+
+<blockquote>
+<p>JSON response example for HTTP 404 Not Found due to No Active Campaign:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="mi">404</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"error"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Not Found"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"No Active Campaign"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre></div><h3 id='handling-errors'>Handling Errors</h3>
+<ul>
+<li>If no active Discount Campaign is found, the server will return an HTTP 404 Not Found along with an error message.</li>
+</ul>
 <h2 id='toggle-favorite'>Toggle Favorite</h2>
 <p>This endpoint allows users to toggle the &quot;Favored&quot; status of a specific discount,
 either marking it as a favorite or removing it from their favorites.
@@ -656,7 +733,7 @@ For more details about the request body, refer to the <a href="#request-body-1">
   </span><span class="nl">"discountId"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
   </span><span class="nl">"favored"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h3 id='http-request-3'>HTTP Request</h3>
+</span></code></pre></div><h3 id='http-request-4'>HTTP Request</h3>
 <h3>
 <span class="put">PUT</span>/discounts/toggle-favorite
 </h3>
@@ -706,7 +783,7 @@ For more details about the request body, refer to the <a href="#request-body-1">
   </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Invalid email provided."</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
-</span></code></pre></div><h3 id='handling-errors'>Handling Errors</h3>
+</span></code></pre></div><h3 id='handling-errors-2'>Handling Errors</h3>
 <ul>
 <li>If an incorrect <code>discountId</code> is provided in the request, the server will return an HTTP 400 Bad Request along with an error message.</li>
 <li>If an incorrect <code>email</code> is provided in the request, the server will return an HTTP 400 Bad Request along with an error message.</li>
@@ -737,7 +814,7 @@ For more details about the request body, refer to the <a href="#request-body-1">
 By sending a GET request to the specified URL with the appropriate parameters, a JSON response containing pagination
 information and an array of favored discount reference objects will be returned.
 For more details about the object properties, refer to the <a href="#discountpagination-properties">Properties</a> section.</p>
-<h3 id='http-request-4'>HTTP Request</h3>
+<h3 id='http-request-5'>HTTP Request</h3>
 <h3>
 <span class="get">GET</span>/discounts/&lt;email&gt;/favorites/&lt;size&gt;/&lt;page&gt;
 </h3>
@@ -781,7 +858,7 @@ For more details about the object properties, refer to the <a href="#discountpag
   </span><span class="nl">"error"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Not Found"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Invalid email provided."</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h3 id='handling-errors-2'>Handling Errors</h3>
+</span></code></pre></div><h3 id='handling-errors-3'>Handling Errors</h3>
 <ul>
 <li>If the customer does not have any favored discounts, an empty list will be returned.</li>
 <li>If an invalid <code>email</code> is provided, a HTTP 404 Not Found will be returned.</li>
@@ -805,9 +882,10 @@ For more details about the object properties, refer to the <a href="#discountpag
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Success"</span><span class="w">
+  </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Successfully added the event"</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h3 id='http-request-5'>HTTP Request</h3>
+</span></code></pre></div><h3 id='http-request-6'>HTTP Request</h3>
 <h3>
 <span class="post">POST</span>/discounts/event
 </h3>
@@ -890,7 +968,7 @@ submission.</p>
   </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Invalid EventType provided."</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
-</span></code></pre></div><h3 id='handling-errors-3'>Handling Errors</h3>
+</span></code></pre></div><h3 id='handling-errors-4'>Handling Errors</h3>
 <ul>
 <li>If an incorrect <code>EventType</code> is provided in the request, the server will return an HTTP 400 Bad Request along with an error message.</li>
 </ul>
@@ -928,7 +1006,7 @@ If no results match the search criteria (either because of a page number too hig
 an empty list of products will be returned. If an incorrect category slug is used, an HTTP 400 Bad Request will be returned.
 For more details about the object properties, 
 refer to the <a href="#productpagination-properties">Properties</a> section.</p>
-<h3 id='http-request-6'>HTTP Request</h3>
+<h3 id='http-request-7'>HTTP Request</h3>
 <h3>
 <span class="get">GET</span>/shop/products/&lt;email&gt;/&lt;category&gt;/&lt;size&gt;/&lt;page&gt;?search=&lt;UrlEncodedSearchString&gt;
 </h3>
@@ -960,6 +1038,15 @@ refer to the <a href="#productpagination-properties">Properties</a> section.</p>
 <td>integer</td>
 <td>The page number to retrieve.</td>
 </tr>
+</tbody></table>
+<h3 id='query-parameters-2'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
 <tr>
 <td><code>Search</code> (URL Encoded)</td>
 <td>string</td>
@@ -967,7 +1054,7 @@ refer to the <a href="#productpagination-properties">Properties</a> section.</p>
 </tr>
 </tbody></table>
 
-<p><b>Note:</b> The search parameter must be URL-encoded to ensure that any special characters within the search string do not interfere with the URL.</p>
+<p><b>Note:</b> The <code>Search</code> query parameter must be URL-encoded to ensure that any special characters within the search string do not interfere with the URL.</p>
 <h3 id='category-parameter'>Category Parameter:</h3>
 <p>The <code>Category</code> parameter indicates the currently selected category or sub-category. Supported values include:</p>
 
@@ -1070,7 +1157,7 @@ refer to the <a href="#productpagination-properties">Properties</a> section.</p>
   </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Invalid category slug provided."</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
-</span></code></pre></div><h3 id='handling-errors-4'>Handling Errors</h3>
+</span></code></pre></div><h3 id='handling-errors-5'>Handling Errors</h3>
 <ul>
 <li>If no products match the given parameters (either due to a high page number, a non-matching search query, or an inexistent email), the response will return an empty product list.</li>
 <li>If an incorrect category slug is provided in the request, the server will return an HTTP 400 Bad Request along with an error message.</li>
@@ -1103,7 +1190,7 @@ For more details about the object properties, refer to the <a href="#product-pro
   </span><span class="nl">"favored"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
   </span><span class="nl">"includesVariants"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h3 id='http-request-7'>HTTP Request</h3>
+</span></code></pre></div><h3 id='http-request-8'>HTTP Request</h3>
 <h3>
 <span class="get">GET</span>/shop/products/&lt;productId&gt;/&lt;email&gt;
 </h3>
@@ -1196,7 +1283,7 @@ For more details about the object properties, refer to the <a href="#product-pro
   </span><span class="nl">"error"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Not Found"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Invalid productId or email provided."</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h3 id='handling-errors-5'>Handling Errors</h3>
+</span></code></pre></div><h3 id='handling-errors-6'>Handling Errors</h3>
 <ul>
 <li>If an invalid <code>productId</code> or <code>email</code> is provided, a HTTP 404 Not Found will be returned.</li>
 </ul>
@@ -1223,7 +1310,7 @@ For more details about the request body, refer to the <a href="#request-body-3">
   </span><span class="nl">"productId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"favored"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h3 id='http-request-8'>HTTP Request</h3>
+</span></code></pre></div><h3 id='http-request-9'>HTTP Request</h3>
 <h3>
 <span class="put">PUT</span>/shop/products/toggle-favorite
 </h3>
@@ -1285,7 +1372,7 @@ For more details about the object properties, refer to the <a href="#category-pr
     </span><span class="nl">"imageSrc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">]</span><span class="w">
-</span></code></pre></div><h3 id='http-request-9'>HTTP Request</h3>
+</span></code></pre></div><h3 id='http-request-10'>HTTP Request</h3>
 <h3>
 <span class="get">GET</span>/shop/categories/&lt;parentId&gt;
 </h3>
@@ -1350,7 +1437,7 @@ For more details about the object properties, refer to the <a href="#category-pr
   </span><span class="nl">"error"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Not Found"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Invalid parentId provided."</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h3 id='handling-errors-6'>Handling Errors</h3>
+</span></code></pre></div><h3 id='handling-errors-7'>Handling Errors</h3>
 <ul>
 <li>If the provided <code>parentId</code> does not contain any sub-categories, an empty list will be returned.</li>
 <li>If an invalid <code>parentId</code> is provided, a HTTP 404 Not Found will be returned.</li>
@@ -1374,9 +1461,10 @@ For more details about the object properties, refer to the <a href="#category-pr
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Success"</span><span class="w">
+  </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Successfully added the event"</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h3 id='http-request-10'>HTTP Request</h3>
+</span></code></pre></div><h3 id='http-request-11'>HTTP Request</h3>
 <h3>
 <span class="post">POST</span>/shop/event
 </h3>
@@ -1456,11 +1544,11 @@ For more details about the object properties, refer to the <a href="#category-pr
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="mi">400</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"error"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bad Request"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
   </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Invalid EventType provided."</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
-</span></code></pre></div><h3 id='handling-errors-7'>Handling Errors</h3>
+</span></code></pre></div><h3 id='handling-errors-8'>Handling Errors</h3>
 <ul>
 <li>If an incorrect <code>EventType</code> is provided in the request, the server will return an HTTP 400 Bad Request along with an error message.</li>
 </ul>
