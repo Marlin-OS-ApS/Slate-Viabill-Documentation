@@ -409,7 +409,9 @@ You must replace <code>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</code> with your per
       </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"subtitle"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"comingSoon"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"favored"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+      </span><span class="nl">"favored"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"new"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"expiresSoon"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
@@ -523,6 +525,16 @@ For more details about the object properties, refer to the <a href="#discountpag
 <td>boolean</td>
 <td>Whether or not the Customer has Favored the Discount.</td>
 </tr>
+<tr>
+<td><code>New</code></td>
+<td>boolean</td>
+<td>Indicates if the discount has been released recently. A discount is marked as &#39;New&#39; if it has been released within the past 7 days. This helps highlight fresh deals to users.</td>
+</tr>
+<tr>
+<td><code>ExpiresSoon</code></td>
+<td>boolean</td>
+<td>Indicates if the discount will expire in the near future. A discount is marked as &#39;ExpiresSoon&#39; if it&#39;s set to expire within the next 7 days. This is used to notify or alert users about a deal that&#39;s ending shortly, encouraging them to take action more promptly.</td>
+</tr>
 </tbody></table>
 <h2 id='discount'>Discount</h2>
 <p>This endpoint allows you to retrieve detailed information about a discount by its ID. By sending a GET request to the
@@ -549,7 +561,9 @@ the <a href="#discount-properties">Properties</a> section.</p>
   </span><span class="nl">"discountType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"comingSoon"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
   </span><span class="nl">"isSubscribed"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"favored"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+  </span><span class="nl">"favored"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"new"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"expiresSoon"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div><h3 id='http-request-2'>HTTP Request</h3>
 <h3>
@@ -643,6 +657,16 @@ the <a href="#discount-properties">Properties</a> section.</p>
 <td><code>Favored</code></td>
 <td>boolean</td>
 <td>Whether or not the Customer has Favored the Discount.</td>
+</tr>
+<tr>
+<td><code>New</code></td>
+<td>boolean</td>
+<td>Indicates if the discount has been released recently. A discount is marked as &#39;New&#39; if it has been released within the past 7 days. This helps highlight fresh deals to users.</td>
+</tr>
+<tr>
+<td><code>ExpiresSoon</code></td>
+<td>boolean</td>
+<td>Indicates if the discount will expire in the near future. A discount is marked as &#39;ExpiresSoon&#39; if it&#39;s set to expire within the next 7 days. This is used to notify or alert users about a deal that&#39;s ending shortly, encouraging them to take action more promptly.</td>
 </tr>
 </tbody></table>
 <h3 id='discounttype-property'>DiscountType Property</h3>
