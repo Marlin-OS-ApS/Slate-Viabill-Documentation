@@ -1308,7 +1308,16 @@ For more details about the object properties, refer to the <a href="#product-pro
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="mi">404</span><span class="p">,</span><span class="w">
   </span><span class="nl">"error"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Not Found"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Invalid productId or email provided."</span><span class="w">
+  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Invalid productId provided."</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>JSON response example for HTTP 404 Not Found:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="mi">404</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"error"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Not Found"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Invalid email provided."</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div><h3 id='handling-errors-6'>Handling Errors</h3>
 <ul>
@@ -1365,8 +1374,6 @@ For more details about the request body, refer to the <a href="#request-body-3">
 <td>The updated &quot;Favored&quot; status of the product. True if the product is now a favorite, false otherwise.</td>
 </tr>
 </tbody></table>
-
-<p><b>Note:</b> If the product was previously marked as &quot;Favored&quot;, it will be toggled to not favored, and vice versa. Ensure that the user is authorized to perform this action before making the request.</p>
 <h2 id='categories-and-sub-categories'>Categories and Sub-categories</h2>
 <p>This endpoint is used to retrieve a list of main categories or their associated sub-categories. 
 By sending a GET request to the specified URL with the optional parentId parameter, a JSON response containing 
