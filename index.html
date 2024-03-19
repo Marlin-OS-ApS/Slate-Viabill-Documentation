@@ -1012,7 +1012,7 @@ submission.</p>
 <li>If an incorrect <code>EventType</code> is provided in the request, the server will return an HTTP 400 Bad Request along with an error message.</li>
 </ul>
 <h1 id='endpoints-in-app-shop'>Endpoints - In-app Shop</h1><h2 id='products'>Products</h2><div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> <span class="s1">'GET'</span> <span class="se">\</span>
-  <span class="s1">'https://viabill.viaads.dk/shop/products/&lt;email&gt;/&lt;category&gt;/&lt;size&gt;/&lt;page&gt;?search=&lt;UrlEncodedSearchString&gt;'</span> <span class="se">\</span>
+  <span class="s1">'https://viabill.viaads.dk/shop/v1/products/&lt;email&gt;/&lt;category&gt;/&lt;size&gt;/&lt;page&gt;?search=&lt;UrlEncodedSearchString&gt;'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'accept: application/json'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'ApiKey: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'</span>
 </code></pre></div>
@@ -1047,7 +1047,7 @@ For more details about the object properties,
 refer to the <a href="#productpagination-properties">Properties</a> section.</p>
 <h3 id='http-request-7'>HTTP Request</h3>
 <h3>
-<span class="get">GET</span>/shop/products/&lt;email&gt;/&lt;category&gt;/&lt;size&gt;/&lt;page&gt;?search=&lt;UrlEncodedSearchString&gt;
+<span class="get">GET</span>/shop/v1/products/&lt;email&gt;/&lt;category&gt;/&lt;size&gt;/&lt;page&gt;?search=&lt;UrlEncodedSearchString&gt;
 </h3>
 <h3 id='url-parameters-4'>URL Parameters</h3>
 <table><thead>
@@ -1207,7 +1207,7 @@ By sending a GET request to the specified URL with the appropriate parameters, a
 comprehensive product details will be returned. 
 For more details about the object properties, refer to the <a href="#product-properties">Properties</a> section.</p>
 <div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> <span class="s1">'GET'</span> <span class="se">\</span>
-  <span class="s1">'https://viabill.viaads.dk/shop/products/&lt;productId&gt;/&lt;email&gt;'</span> <span class="se">\</span>
+  <span class="s1">'https://viabill.viaads.dk/shop/v1/products/&lt;productId&gt;/&lt;email&gt;'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'accept: application/json'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'ApiKey: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'</span>
 </code></pre></div>
@@ -1231,7 +1231,7 @@ For more details about the object properties, refer to the <a href="#product-pro
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div><h3 id='http-request-8'>HTTP Request</h3>
 <h3>
-<span class="get">GET</span>/shop/products/&lt;productId&gt;/&lt;email&gt;
+<span class="get">GET</span>/shop/v1/products/&lt;productId&gt;/&lt;email&gt;
 </h3>
 <h3 id='url-parameters-5'>URL Parameters</h3>
 <table><thead>
@@ -1341,7 +1341,7 @@ either marking it as a favorite or removing it from their favorites.
 By sending a PUT request to the specified URL, the product&#39;s &quot;Favored&quot; status will be updated based on its current value.
 For more details about the request body, refer to the <a href="#request-body-3">Request Body</a> section.</p>
 <div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> <span class="s1">'PUT'</span> <span class="se">\</span>
-  <span class="s1">'https://viabill.viaads.dk/shop/products/toggle-favorite'</span> <span class="se">\</span>
+  <span class="s1">'https://viabill.viaads.dk/shop/v1/products/toggle-favorite'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'accept: application/json'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'ApiKey: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'</span> <span class="se">\</span>
   <span class="nt">-d</span> <span class="s1">'{
@@ -1360,7 +1360,7 @@ For more details about the request body, refer to the <a href="#request-body-3">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div><h3 id='http-request-9'>HTTP Request</h3>
 <h3>
-<span class="put">PUT</span>/shop/products/toggle-favorite
+<span class="put">PUT</span>/shop/v1/products/toggle-favorite
 </h3>
 <h3 id='request-body-3'>Request Body</h3>
 <table><thead>
@@ -1392,7 +1392,7 @@ By sending a GET request to the specified URL with the optional parentId paramet
 either a list of main categories or their sub-categories will be returned, based on the presence of the parentId.
 For more details about the object properties, refer to the <a href="#category-properties">Properties</a> section.</p>
 <div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> <span class="s1">'GET'</span> <span class="se">\</span>
-  <span class="s1">'https://viabill.viaads.dk/shop/categories/&lt;ParentId&gt;'</span> <span class="se">\</span>
+  <span class="s1">'https://viabill.viaads.dk/shop/v1/categories/&lt;ParentId&gt;'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'accept: application/json'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'ApiKey: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'</span>
 </code></pre></div>
@@ -1420,7 +1420,7 @@ For more details about the object properties, refer to the <a href="#category-pr
 </span><span class="p">]</span><span class="w">
 </span></code></pre></div><h3 id='http-request-10'>HTTP Request</h3>
 <h3>
-<span class="get">GET</span>/shop/categories/&lt;parentId&gt;
+<span class="get">GET</span>/shop/v1/categories/&lt;parentId&gt;
 </h3>
 <h3 id='url-parameters-6'>URL Parameters</h3>
 <table><thead>
@@ -1491,7 +1491,7 @@ For more details about the object properties, refer to the <a href="#category-pr
 <h2 id='event-2'>Event</h2>
 <p>This endpoint is used for pushing shop events to track customer behavior.</p>
 <div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> <span class="s1">'POST'</span> <span class="se">\</span>
-  <span class="s1">'https://viabill.viaads.dk/shop/event'</span> <span class="se">\</span>
+  <span class="s1">'https://viabill.viaads.dk/shop/v1/event'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'accept: application/json'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'ApiKey: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
@@ -1512,7 +1512,7 @@ For more details about the object properties, refer to the <a href="#category-pr
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div><h3 id='http-request-11'>HTTP Request</h3>
 <h3>
-<span class="post">POST</span>/shop/event
+<span class="post">POST</span>/shop/v1/event
 </h3>
 <h3 id='request-body-4'>Request Body</h3>
 <table><thead>
