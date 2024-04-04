@@ -1012,7 +1012,7 @@ submission.</p>
 <li>If an incorrect <code>EventType</code> is provided in the request, the server will return an HTTP 400 Bad Request along with an error message.</li>
 </ul>
 <h1 id='endpoints-in-app-shop'>Endpoints - In-app Shop</h1><h2 id='products'>Products</h2><div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> <span class="s1">'GET'</span> <span class="se">\</span>
-  <span class="s1">'https://viabill.viaads.dk/shop/v1/products/&lt;email&gt;/&lt;category&gt;/&lt;size&gt;/&lt;page&gt;?search=&lt;UrlEncodedSearchString&gt;'</span> <span class="se">\</span>
+  <span class="s1">'https://viabill.viaads.dk/shop/v1/products/&lt;email&gt;/&lt;size&gt;/&lt;page&gt;?search=&lt;UrlEncodedSearchString&gt;'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'accept: application/json'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'ApiKey: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'</span>
 </code></pre></div>
@@ -1047,7 +1047,7 @@ For more details about the object properties,
 refer to the <a href="#productpagination-properties">Properties</a> section.</p>
 <h3 id='http-request-7'>HTTP Request</h3>
 <h3>
-<span class="get">GET</span>/shop/v1/products/&lt;email&gt;/&lt;category&gt;/&lt;size&gt;/&lt;page&gt;?search=&lt;UrlEncodedSearchString&gt;
+<span class="get">GET</span>/shop/v1/products/&lt;email&gt;/&lt;size&gt;/&lt;page&gt;?search=&lt;UrlEncodedSearchString&gt;&category=&lt;UrlEncodedCategory&gt;&bestsellers=&lt;boolean&gt;
 </h3>
 <h3 id='url-parameters-4'>URL Parameters</h3>
 <table><thead>
@@ -1061,11 +1061,6 @@ refer to the <a href="#productpagination-properties">Properties</a> section.</p>
 <td><code>Email</code></td>
 <td>string</td>
 <td>The email of the customer making the request.</td>
-</tr>
-<tr>
-<td><code>Category</code></td>
-<td>string</td>
-<td>The current selected category/sub-category, including Recommended and Favorites - See <a href="#category-parameter">Category Parameter</a> for more details.  If an incorrect slug is used, you will receive an HTTP 400 Bad Request.</td>
 </tr>
 <tr>
 <td><code>Size</code></td>
@@ -1091,9 +1086,19 @@ refer to the <a href="#productpagination-properties">Properties</a> section.</p>
 <td>string</td>
 <td>(Optional) URL-encoded search string to filter the products.</td>
 </tr>
+<tr>
+<td><code>Category</code> (URL Encoded)</td>
+<td>string</td>
+<td>(Optional) The current selected category/sub-category, including Recommended and Favorites - See <a href="#category-parameter">Category Parameter</a> for more details.</td>
+</tr>
+<tr>
+<td><code>BestSellers</code></td>
+<td>bool</td>
+<td>(Optional) Filter by BestSellers Only.</td>
+</tr>
 </tbody></table>
 
-<p><b>Note:</b> The <code>Search</code> query parameter must be URL-encoded to ensure that any special characters within the search string do not interfere with the URL.</p>
+<p><b>Note:</b> The string query parameters must be URL-encoded to ensure that any special characters within the search string do not interfere with the URL.</p>
 <h3 id='category-parameter'>Category Parameter:</h3>
 <p>The <code>Category</code> parameter indicates the currently selected category or sub-category. Supported values include:</p>
 
