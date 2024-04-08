@@ -1012,7 +1012,11 @@ submission.</p>
 <li>If an incorrect <code>EventType</code> is provided in the request, the server will return an HTTP 400 Bad Request along with an error message.</li>
 </ul>
 <h1 id='endpoints-in-app-shop'>Endpoints - In-app Shop</h1><h2 id='products'>Products</h2><div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> <span class="s1">'GET'</span> <span class="se">\</span>
+<<<<<<< Updated upstream
   <span class="s1">'https://viabill.viaads.dk/shop/v1/products/&lt;email&gt;/&lt;size&gt;/&lt;page&gt;?search=&lt;UrlEncodedSearchString&gt;'</span> <span class="se">\</span>
+=======
+  <span class="s1">'https://viabill.viaads.dk/shop/v1/products/&lt;email&gt;/&lt;size&gt;/&lt;page&gt;?search=&lt;UrlEncodedSearchString&gt;&amp;category=&amp;lt;UrlEncodedCategory&amp;gt;&amp;bestsellers=&amp;lt;boolean&amp;gt;'</span> <span class="se">\</span>
+>>>>>>> Stashed changes
   <span class="nt">-H</span> <span class="s1">'accept: application/json'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'ApiKey: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'</span>
 </code></pre></div>
