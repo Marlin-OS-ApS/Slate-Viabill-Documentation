@@ -1012,11 +1012,7 @@ submission.</p>
 <li>If an incorrect <code>EventType</code> is provided in the request, the server will return an HTTP 400 Bad Request along with an error message.</li>
 </ul>
 <h1 id='endpoints-in-app-shop'>Endpoints - In-app Shop</h1><h2 id='products'>Products</h2><div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> <span class="s1">'GET'</span> <span class="se">\</span>
-<<<<<<< Updated upstream
-  <span class="s1">'https://viabill.viaads.dk/shop/v1/products/&lt;email&gt;/&lt;size&gt;/&lt;page&gt;?search=&lt;UrlEncodedSearchString&gt;'</span> <span class="se">\</span>
-=======
   <span class="s1">'https://viabill.viaads.dk/shop/v1/products/&lt;email&gt;/&lt;size&gt;/&lt;page&gt;?search=&lt;UrlEncodedSearchString&gt;&amp;category=&amp;lt;UrlEncodedCategory&amp;gt;&amp;bestsellers=&amp;lt;boolean&amp;gt;'</span> <span class="se">\</span>
->>>>>>> Stashed changes
   <span class="nt">-H</span> <span class="s1">'accept: application/json'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'ApiKey: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'</span>
 </code></pre></div>
@@ -1051,7 +1047,7 @@ For more details about the object properties,
 refer to the <a href="#productpagination-properties">Properties</a> section.</p>
 <h3 id='http-request-7'>HTTP Request</h3>
 <h3>
-<span class="get">GET</span>/shop/v1/products/&lt;email&gt;/&lt;size&gt;/&lt;page&gt;?search=&lt;UrlEncodedSearchString&gt;&category=&lt;UrlEncodedCategory&gt;&bestsellers=&lt;boolean&gt;
+<span class="get">GET</span>/shop/v1/products/&lt;email&gt;/&lt;size&gt;/&lt;page&gt;?search=&lt;UrlEncodedSearchString&gt;&category=&lt;UrlEncodedCategory&gt;&bestsellers=&lt;boolean&gt;&favorites=&lt;boolean&gt;&recommended=&lt;boolean&gt;
 </h3>
 <h3 id='url-parameters-4'>URL Parameters</h3>
 <table><thead>
@@ -1099,6 +1095,16 @@ refer to the <a href="#productpagination-properties">Properties</a> section.</p>
 <td><code>BestSellers</code></td>
 <td>bool</td>
 <td>(Optional) Filter by BestSellers Only.</td>
+</tr>
+<tr>
+<td><code>Favorites</code></td>
+<td>bool</td>
+<td>(Optional) Filter by Favorites Only.</td>
+</tr>
+<tr>
+<td><code>Recommended</code></td>
+<td>bool</td>
+<td>(Optional) Filter by Recommended Only.</td>
 </tr>
 </tbody></table>
 
@@ -1230,6 +1236,7 @@ For more details about the object properties, refer to the <a href="#product-pro
     </span><span class="s2">"string"</span><span class="w">
   </span><span class="p">],</span><span class="w">
   </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"normalPrice"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.00</span><span class="p">,</span><span class="w">
   </span><span class="nl">"salePrice"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.00</span><span class="p">,</span><span class="w">
   </span><span class="nl">"merchantLogoSrc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
@@ -1285,6 +1292,11 @@ For more details about the object properties, refer to the <a href="#product-pro
 <td><code>Name</code></td>
 <td>string</td>
 <td>The name of the product.</td>
+</tr>
+<tr>
+<td><code>Description</code></td>
+<td>string</td>
+<td>The description of the product - if none are provided, the string will be empty.</td>
 </tr>
 <tr>
 <td><code>NormalPrice</code></td>
@@ -1411,7 +1423,9 @@ For more details about the object properties, refer to the <a href="#category-pr
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
   </span><span class="p">{</span><span class="w">
     </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"nameDA"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"nameEN"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"nameES"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"imageSrc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">]</span><span class="w">
@@ -1423,7 +1437,9 @@ For more details about the object properties, refer to the <a href="#category-pr
   </span><span class="p">{</span><span class="w">
     </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
     </span><span class="nl">"parentId"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"nameDA"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"nameEN"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"nameES"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"imageSrc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">]</span><span class="w">
@@ -1466,9 +1482,19 @@ For more details about the object properties, refer to the <a href="#category-pr
 <td>(Only for sub-categories) The unique identifier of the associated main category.</td>
 </tr>
 <tr>
-<td><code>Name</code></td>
+<td><code>NameDA</code></td>
 <td>string</td>
-<td>The name of the category or sub-category.</td>
+<td>The Danish Translation of the name of the category or sub-category.</td>
+</tr>
+<tr>
+<td><code>NameEN</code></td>
+<td>string</td>
+<td>The English Translation of the name of the category or sub-category.</td>
+</tr>
+<tr>
+<td><code>NameES</code></td>
+<td>string</td>
+<td>The Spanish Translation of the name of the category or sub-category.</td>
 </tr>
 <tr>
 <td><code>ImageSrc</code></td>
