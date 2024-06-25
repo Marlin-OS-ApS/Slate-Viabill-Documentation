@@ -303,6 +303,11 @@
           </li>
           <li>
             <a href="#authentication" class="toc-h1 toc-link" data-title="Authentication">Authentication</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#changelog" class="toc-h2 toc-link" data-title="Changelog">Changelog</a>
+                  </li>
+              </ul>
           </li>
           <li>
             <a href="#endpoints-discount" class="toc-h1 toc-link" data-title="Endpoints - Discount">Endpoints - Discount</a>
@@ -392,6 +397,10 @@ Development base Url: https://dev.viabill.viaads.dk</p>
 <aside class="notice">
 You must replace <code>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</code> with your personal API key.
 </aside>
+<h2 id='changelog'>Changelog</h2><h3 id='recent-changes'>Recent Changes</h3>
+<ul>
+<li>MerchantName has been added to both the ProductRef and the Product Properties</li>
+</ul>
 <h1 id='endpoints-discount'>Endpoints - Discount</h1><h2 id='discounts'>Discounts</h2><div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> <span class="s1">'GET'</span> <span class="se">\</span>
   <span class="s1">'https://viabill.viaads.dk/discounts/&lt;email&gt;/&lt;size&gt;/&lt;page&gt;?campaign=QUERY_NAME'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'accept: application/json'</span> <span class="se">\</span>
@@ -1192,6 +1201,11 @@ refer to the <a href="#productpagination-properties">Properties</a> section.</p>
 <td>boolean</td>
 <td>Indicates whether the product includes variants e.g. color or size.</td>
 </tr>
+<tr>
+<td><code>MerchantName</code></td>
+<td>string</td>
+<td>The name of the merchant from which the Product is retrieved</td>
+</tr>
 </tbody></table>
 
 <blockquote>
@@ -1332,6 +1346,11 @@ For more details about the object properties, refer to the <a href="#product-pro
 <td><code>IncludesVariants</code></td>
 <td>boolean</td>
 <td>Indicates if the product has various options e.g. size, color.</td>
+</tr>
+<tr>
+<td><code>MerchantName</code></td>
+<td>string</td>
+<td>The name of the merchant from which the Product is retrieved</td>
 </tr>
 </tbody></table>
 
