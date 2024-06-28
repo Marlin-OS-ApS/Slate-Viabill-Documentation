@@ -399,7 +399,15 @@ You must replace <code>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</code> with your per
 </aside>
 <h2 id='changelog'>Changelog</h2><h3 id='recent-changes'>Recent Changes</h3>
 <ul>
-<li>MerchantName has been added to both the ProductRef and the Product Properties</li>
+<li>MerchantName has been added to both the <a href="#productref-properties">ProductRef</a> and the <a href="#product-properties">Product</a> Properties</li>
+<li>Added <code>searchGuid</code> as a parameter to <a href="#Products">Product Search Query</a></li>
+<li>Added a new Event type (Discounts_list_viewed) on Discounts <a href="#event">Discount Events</a></li>
+<li>Added a new Event type (Products_list_viewed) on Products <a href="#event-1">Product Events</a></li>
+<li>Added <code>SearchGuid</code> as a parameter for the <a href="#event-1">Product Events</a></li>
+</ul>
+<h3 id='highlights'>Highlights</h3>
+<ul>
+<li>To utilize the current free Search Functionality, fill out the search Query Parameter on the products endpoint <a href="#products">here</a></li>
 </ul>
 <h1 id='endpoints-discount'>Endpoints - Discount</h1><h2 id='discounts'>Discounts</h2><div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> <span class="s1">'GET'</span> <span class="se">\</span>
   <span class="s1">'https://viabill.viaads.dk/discounts/&lt;email&gt;/&lt;size&gt;/&lt;page&gt;?campaign=QUERY_NAME'</span> <span class="se">\</span>
@@ -948,7 +956,12 @@ For more details about the object properties, refer to the <a href="#discountpag
 <tr>
 <td><code>DiscountId</code></td>
 <td>long</td>
-<td>The ID of the discount for which the event occurred.</td>
+<td>(Optional) The ID of the discount for which the event occurred. Required for all events except <code>discounts_list_viewed</code></td>
+</tr>
+<tr>
+<td><code>DiscountIds</code></td>
+<td>long[]</td>
+<td>(Optional) The IDs of the discounts for which the event occurred. Required for <code>discounts_list_viewed</code></td>
 </tr>
 <tr>
 <td><code>CustomerEmail</code></td>
@@ -963,7 +976,7 @@ For more details about the object properties, refer to the <a href="#discountpag
 <tr>
 <td></td>
 <td></td>
-<td>- <code>discount_details_viewed</code>: Indicates the event where the customer has viewed the details of the discount.</td>
+<td>- <code>discount_details_viewed</code>: (New) Indicates the event where the customer has viewed the details of the discount.</td>
 </tr>
 <tr>
 <td></td>
@@ -995,6 +1008,7 @@ For more details about the object properties, refer to the <a href="#discountpag
 <p>Each <code>EventType</code> indicates a specific customer behavior action related to the discount. The following event types is supported:</p>
 
 <ul>
+<li><code>discounts_list_viewed</code>: (New) Triggered when the customer views a list of discount. <br></li>
 <li><code>discount_details_viewed</code>: Indicates that the customer has viewed the details of the discount. This event is triggered when the customer accesses or interacts with the specific discount to learn more about its details, such as the title, description, or expiration date. <br></li>
 <li><code>discount_link_opened</code>: Represents an event where the customer has opened the discount link. This event is triggered when the customer clicks on the provided link associated with the discount, redirecting them to a specific webpage or destination related to the discount offer.<br></li>
 <li><code>discount_code_copied</code>: Signifies that the customer has copied the discount code. This event occurs when the customer selects and copies the discount code provided, typically for later use during the checkout process or when manually entering the code on a website or application. <br></li>
@@ -1021,7 +1035,7 @@ submission.</p>
 <li>If an incorrect <code>EventType</code> is provided in the request, the server will return an HTTP 400 Bad Request along with an error message.</li>
 </ul>
 <h1 id='endpoints-in-app-shop'>Endpoints - In-app Shop</h1><h2 id='products'>Products</h2><div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> <span class="s1">'GET'</span> <span class="se">\</span>
-  <span class="s1">'https://viabill.viaads.dk/shop/v1/products/&lt;email&gt;/&lt;size&gt;/&lt;page&gt;?search=&lt;UrlEncodedSearchString&gt;&amp;category=&lt;UrlEncodedCategory&gt;&amp;bestsellers=&lt;boolean&gt;&amp;favorites=&lt;boolean&gt;&amp;recommended=&lt;boolean&gt;'</span> <span class="se">\</span>
+  <span class="s1">'https://viabill.viaads.dk/shop/v1/products/&lt;email&gt;/&lt;size&gt;/&lt;page&gt;?search=&lt;UrlEncodedSearchString&gt;&amp;category=&lt;UrlEncodedCategory&gt;&amp;bestsellers=&lt;boolean&gt;&amp;favorites=&lt;boolean&gt;&amp;recommended=&lt;boolean&gt;&amp;searchGuid=&lt;string&gt;'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'accept: application/json'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'ApiKey: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'</span>
 </code></pre></div>
@@ -1056,7 +1070,7 @@ For more details about the object properties,
 refer to the <a href="#productpagination-properties">Properties</a> section.</p>
 <h3 id='http-request-7'>HTTP Request</h3>
 <h3>
-<span class="get">GET</span>/shop/v1/products/&lt;email&gt;/&lt;size&gt;/&lt;page&gt;?search=&lt;UrlEncodedSearchString&gt;&category=&lt;UrlEncodedCategory&gt;&bestsellers=&lt;boolean&gt;&favorites=&lt;boolean&gt;&recommended=&lt;boolean&gt;
+<span class="get">GET</span>/shop/v1/products/&lt;email&gt;/&lt;size&gt;/&lt;page&gt;?search=&lt;UrlEncodedSearchString&gt;&category=&lt;UrlEncodedCategory&gt;&bestsellers=&lt;boolean&gt;&favorites=&lt;boolean&gt;&recommended=&lt;boolean&gt;&searchGuid=&lt;string&gt;
 </h3>
 <h3 id='url-parameters-4'>URL Parameters</h3>
 <table><thead>
@@ -1115,6 +1129,11 @@ refer to the <a href="#productpagination-properties">Properties</a> section.</p>
 <td>bool</td>
 <td>(Optional) Filter by Recommended Only.</td>
 </tr>
+<tr>
+<td><code>SearchGuid</code></td>
+<td>string</td>
+<td>(Optional) A Unique identifier for every new search or category interaction, which allows for Recommendation Engine Improvements</td>
+</tr>
 </tbody></table>
 
 <p><b>Note:</b> The string query parameters must be URL-encoded to ensure that any special characters within the search string do not interfere with the URL.</p>
@@ -1124,8 +1143,7 @@ refer to the <a href="#productpagination-properties">Properties</a> section.</p>
 <ul>
 <li><code>Recommended</code>: Selected when the customer chooses the <code>Anbefalet</code> tab in the Categories list. This returns products most relevant to the customer<br></li>
 <li><code>Favorites</code>: Chosen when the customer selects the <code>Favoritter</code> tab. This returned the products the customer has marked as favorites.<br></li>
-<li>Main Category (e.g., <code>Gaming</code>): When the customer selects a primary category like <code>Gaming</code>, products within this category are returned.<br></li>
-<li>Sub-Category (e.g., <code>Spille konsoller</code>): If a sub-category within a main category like <code>Gaming</code> is chosen, products within this sub-category are returned.<br></li>
+<li>The Id of the Category or Sub-Category</li>
 </ul>
 
 <p><br></p>
@@ -1579,7 +1597,12 @@ For more details about the object properties, refer to the <a href="#category-pr
 <tr>
 <td><code>ProductId</code></td>
 <td>string</td>
-<td>(Optional) The Unique Identifier of the product related to the event.</td>
+<td>(Optional) The Unique Identifier of the product related to the event. Required for all events except <code>products_list_viewed</code></td>
+</tr>
+<tr>
+<td><code>ProductIds</code></td>
+<td>string[]</td>
+<td>(Optional) The Unique Identifiers of the products related to the event. Required for <code>products_list_viewed</code></td>
 </tr>
 <tr>
 <td><code>CustomerEmail</code></td>
@@ -1590,6 +1613,11 @@ For more details about the object properties, refer to the <a href="#category-pr
 <td><code>EventType</code></td>
 <td>string</td>
 <td>The type of event, which can be any of the following values:</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>- <code>products_list_viewed</code>: (New) When a customer views a list of product&#39;s</td>
 </tr>
 <tr>
 <td></td>
@@ -1621,6 +1649,11 @@ For more details about the object properties, refer to the <a href="#category-pr
 <td>string</td>
 <td>The date and time of the event in ISO 8601 format.</td>
 </tr>
+<tr>
+<td><code>SearchGuid</code></td>
+<td>string</td>
+<td>(Optional) The GUID used for the <a href="#products">Product Search Query</a>. Relevant for <code>product_viewed</code> and <code>product_favorised</code></td>
+</tr>
 </tbody></table>
 
 <p><b>Note:</b> The ProductId is optional for events that are not directly related to a specific product, such as general searches or app-wide actions. However, for product-specific actions like viewing or favoriting, it&#39;s recommended to include the ProductId.</p>
@@ -1628,6 +1661,7 @@ For more details about the object properties, refer to the <a href="#category-pr
 <p>The <code>EventType</code> property describes specific actions that customers might undertake in the in-app shop:</p>
 
 <ul>
+<li><code>products_list_viewed</code>: (New) Triggered when the customer views a list of products, either a category, a search or a section. <br></li>
 <li><code>product_viewed</code>: Triggered when the customer views the details of a product. <br></li>
 <li><code>product_favorised</code>: Triggered when a customer adds a product to their <code>Favorites</code>. <br></li>
 <li><code>product_unfavorised</code>: Triggered when a customer removes a product to their <code>Favorites</code>. <br></li>
