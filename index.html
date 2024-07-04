@@ -348,6 +348,9 @@
                     <a href="#categories-and-sub-categories" class="toc-h2 toc-link" data-title="Categories and Sub-categories">Categories and Sub-categories</a>
                   </li>
                   <li>
+                    <a href="#sections" class="toc-h2 toc-link" data-title="Sections">Sections</a>
+                  </li>
+                  <li>
                     <a href="#event-2" class="toc-h2 toc-link" data-title="Event">Event</a>
                   </li>
               </ul>
@@ -397,18 +400,41 @@ Development base Url: https://dev.viabill.viaads.dk</p>
 <aside class="notice">
 You must replace <code>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</code> with your personal API key.
 </aside>
+
+<hr>
 <h2 id='changelog'>Changelog</h2><h3 id='recent-changes'>Recent Changes</h3>
-<ul>
-<li>MerchantName has been added to both the <a href="#productref-properties">ProductRef</a> and the <a href="#product-properties">Product</a> Properties</li>
-<li>Added <code>searchGuid</code> as a parameter to <a href="#Products">Product Search Query</a></li>
-<li>Added a new Event type (Discounts_list_viewed) on Discounts <a href="#event">Discount Events</a></li>
-<li>Added a new Event type (Products_list_viewed) on Products <a href="#event-1">Product Events</a></li>
-<li>Added <code>SearchGuid</code> as a parameter for the <a href="#event-1">Product Events</a></li>
-</ul>
+<p>[2024-07-04]
+* In-App Shop API Documentation Enhancements:
+  * <a href="#products">Products</a> Endpoint:
+    * Updated Query parameters to include: <code>sectionId</code>.
+    * Updated Query parameters to include: <code>categoryId</code>.
+    * Removed support for <code>CategoryName</code> in the <code>Category</code> Query Parameter value
+  * <a href="#categories-and-sub-categories">Categories and Sub-categories</a> Endpoint:
+    * Updated <code>name</code> property to support translations (<code>da</code>, <code>en</code>, <code>es</code>) as an object instead, with continued support for previous version.
+    * Added <a href="#category-translation-properties">Category Translation Properties</a>
+  * <a href="#sections">Sections</a> Endpoint:
+    * New endpoint added to retrieve a list of <code>sections</code> for the In-App Shop. 
+    * Includes properties for <code>id</code>, <code>title</code>, <code>subtitle</code>, <code>type</code>, <code>productCount</code>, and <code>products</code>.
+    * <code>title</code> and <code>subtitle</code> properties support translations (<code>da</code>, <code>en</code>, <code>es</code>).
+    * Added <a href="#section-translation-properties">Section Translation Properties</a>
+  * <a href="#event-1">Event</a> Endpoint:
+    * Added new properties <code>ListType</code> and <code>ListId</code> for tracking the type and identifier of product lists viewed.</p>
+
+<p><br></p>
+
+<p>[2024-06-28]
+* In-App Shop API Documentation Enhancements:
+  * MerchantName has been added to both the <a href="#productref-properties">ProductRef</a> and the <a href="#product-properties">Product</a> Properties
+  * Added <code>searchGuid</code> as a parameter to <a href="#Products">Product Search Query</a>
+  * Added a new Event type (Discounts_list_viewed) on Discounts <a href="#event">Discount Events</a>
+  * Added a new Event type (Products_list_viewed) on Products <a href="#event-1">Product Events</a>
+  * Added <code>SearchGuid</code> as a parameter for the <a href="#event-1">Product Events</a></p>
 <h3 id='highlights'>Highlights</h3>
 <ul>
 <li>To utilize the current free Search Functionality, fill out the search Query Parameter on the products endpoint <a href="#products">here</a></li>
 </ul>
+
+<hr>
 <h1 id='endpoints-discount'>Endpoints - Discount</h1><h2 id='discounts'>Discounts</h2><div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> <span class="s1">'GET'</span> <span class="se">\</span>
   <span class="s1">'https://viabill.viaads.dk/discounts/&lt;email&gt;/&lt;size&gt;/&lt;page&gt;?campaign=QUERY_NAME'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'accept: application/json'</span> <span class="se">\</span>
@@ -553,6 +579,8 @@ For more details about the object properties, refer to the <a href="#discountpag
 <td>Indicates if the discount will expire in the near future. A discount is marked as &#39;ExpiresSoon&#39; if it&#39;s set to expire within the next 7 days. This is used to notify or alert users about a deal that&#39;s ending shortly, encouraging them to take action more promptly.</td>
 </tr>
 </tbody></table>
+
+<hr>
 <h2 id='discount'>Discount</h2>
 <p>This endpoint allows you to retrieve detailed information about a discount by its ID. By sending a GET request to the
 specified URL with the discount ID and customer email as parameters, a JSON response containing
@@ -695,6 +723,8 @@ the <a href="#discount-properties">Properties</a> section.</p>
 <br></li>
 <li><code>General</code>: Represents a general discount offered by the webshop itself without the need for a discount code. The discount is automatically applied to eligible items during the checkout process.</li>
 </ul>
+
+<hr>
 <h2 id='campaign-discounts'>Campaign Discounts</h2><div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> <span class="s1">'GET'</span> <span class="se">\</span>
   <span class="s1">'https://viabill.viaads.dk/discounts/campaign'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'accept: application/json'</span> <span class="se">\</span>
@@ -763,6 +793,8 @@ For more details about the object properties, refer to the <a href="#discountpag
 <ul>
 <li>If no active Discount Campaign is found, the server will return an HTTP 404 Not Found along with an error message.</li>
 </ul>
+
+<hr>
 <h2 id='toggle-favorite'>Toggle Favorite</h2>
 <p>This endpoint allows users to toggle the &quot;Favored&quot; status of a specific discount,
 either marking it as a favorite or removing it from their favorites.
@@ -919,6 +951,8 @@ For more details about the object properties, refer to the <a href="#discountpag
 <li>If the customer does not have any favored discounts, an empty list will be returned.</li>
 <li>If an invalid <code>email</code> is provided, a HTTP 404 Not Found will be returned.</li>
 </ul>
+
+<hr>
 <h2 id='event'>Event</h2>
 <p>This endpoint is used for pushing discount events to track customer behavior.</p>
 <div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> <span class="s1">'POST'</span> <span class="se">\</span>
@@ -971,32 +1005,7 @@ For more details about the object properties, refer to the <a href="#discountpag
 <tr>
 <td><code>EventType</code></td>
 <td>string</td>
-<td>The type of event. Possible values are:</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td>- <code>discount_details_viewed</code>: (New) Indicates the event where the customer has viewed the details of the discount.</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td>- <code>discount_link_opened</code>: Represents the event where the customer has opened the discount link.</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td>- <code>discount_code_copied</code>: Signifies the event where the customer has copied the discount code.</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td>- <code>discount_favorised</code>: Signifies the event where the customer has favored the discount.</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td>- <code>discount_unfavorised</code>: Signifies the event where the customer has unfavored the discount.</td>
+<td>The type of event. <a href="#EventType-Property">Event Types</a>.</td>
 </tr>
 <tr>
 <td><code>EventDate</code></td>
@@ -1034,8 +1043,10 @@ submission.</p>
 <ul>
 <li>If an incorrect <code>EventType</code> is provided in the request, the server will return an HTTP 400 Bad Request along with an error message.</li>
 </ul>
+
+<hr>
 <h1 id='endpoints-in-app-shop'>Endpoints - In-app Shop</h1><h2 id='products'>Products</h2><div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> <span class="s1">'GET'</span> <span class="se">\</span>
-  <span class="s1">'https://viabill.viaads.dk/shop/v1/products/&lt;email&gt;/&lt;size&gt;/&lt;page&gt;?search=&lt;UrlEncodedSearchString&gt;&amp;category=&lt;UrlEncodedCategory&gt;&amp;bestsellers=&lt;boolean&gt;&amp;favorites=&lt;boolean&gt;&amp;recommended=&lt;boolean&gt;&amp;searchGuid=&lt;string&gt;'</span> <span class="se">\</span>
+  <span class="s1">'https://viabill.viaads.dk/shop/v1/products/&lt;email&gt;/&lt;size&gt;/&lt;page&gt;?search=&lt;UrlEncodedSearchString&gt;&amp;category=&lt;UrlEncodedCategory&gt;&amp;categoryId=&lt;int&gt;&amp;sectionId=&lt;int&gt;&amp;bestsellers=&lt;boolean&gt;&amp;favorites=&lt;boolean&gt;&amp;recommended=&lt;boolean&gt;&amp;searchGuid=&lt;string&gt;'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'accept: application/json'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'ApiKey: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'</span>
 </code></pre></div>
@@ -1070,7 +1081,7 @@ For more details about the object properties,
 refer to the <a href="#productpagination-properties">Properties</a> section.</p>
 <h3 id='http-request-7'>HTTP Request</h3>
 <h3>
-<span class="get">GET</span>/shop/v1/products/&lt;email&gt;/&lt;size&gt;/&lt;page&gt;?search=&lt;UrlEncodedSearchString&gt;&category=&lt;UrlEncodedCategory&gt;&bestsellers=&lt;boolean&gt;&favorites=&lt;boolean&gt;&recommended=&lt;boolean&gt;&searchGuid=&lt;string&gt;
+<span class="get">GET</span>/shop/v1/products/&lt;email&gt;/&lt;size&gt;/&lt;page&gt;?search=&lt;UrlEncodedSearchString&gt;&category=&lt;UrlEncodedCategory&gt;categoryId=&lt;int&gt;sectionId=&lt;int&gt;&bestsellers=&lt;boolean&gt;&favorites=&lt;boolean&gt;&recommended=&lt;boolean&gt;&searchGuid=&lt;string&gt;
 </h3>
 <h3 id='url-parameters-4'>URL Parameters</h3>
 <table><thead>
@@ -1110,9 +1121,19 @@ refer to the <a href="#productpagination-properties">Properties</a> section.</p>
 <td>(Optional) URL-encoded search string to filter the products.</td>
 </tr>
 <tr>
-<td><code>Category</code> (URL Encoded)</td>
+<td><code>Category</code></td>
 <td>string</td>
-<td>(Optional) The current selected category/sub-category, including Recommended and Favorites - See <a href="#category-parameter">Category Parameter</a> for more details.</td>
+<td>(Optional) (To Be Removed) The current selected category/sub-category - See <a href="#category-parameter">Category Parameter</a> for more details.</td>
+</tr>
+<tr>
+<td><code>CategoryId</code></td>
+<td>int</td>
+<td>(Optional) The Id of the current selected category/sub-category - Returns products included in the category/sub-category only.</td>
+</tr>
+<tr>
+<td><code>SectionId</code></td>
+<td>int</td>
+<td>(Optional) The Id of the current selected section - Returns products included in the section only.</td>
 </tr>
 <tr>
 <td><code>BestSellers</code></td>
@@ -1141,8 +1162,6 @@ refer to the <a href="#productpagination-properties">Properties</a> section.</p>
 <p>The <code>Category</code> parameter indicates the currently selected category or sub-category. Supported values include:</p>
 
 <ul>
-<li><code>Recommended</code>: Selected when the customer chooses the <code>Anbefalet</code> tab in the Categories list. This returns products most relevant to the customer<br></li>
-<li><code>Favorites</code>: Chosen when the customer selects the <code>Favoritter</code> tab. This returned the products the customer has marked as favorites.<br></li>
 <li>The Id of the Category or Sub-Category</li>
 </ul>
 
@@ -1245,9 +1264,11 @@ refer to the <a href="#productpagination-properties">Properties</a> section.</p>
 
 </span></code></pre></div><h3 id='handling-errors-5'>Handling Errors</h3>
 <ul>
-<li>If no products match the given parameters (either due to a high page number, a non-matching search query, or an inexistent email), the response will return an empty product list.</li>
+<li>If no products match the given parameters (either due to a high page number, a non-matching search query, or an nonexistent email), the response will return an empty product list.</li>
 <li>If an incorrect category slug is provided in the request, the server will return an HTTP 400 Bad Request along with an error message.</li>
 </ul>
+
+<hr>
 <h2 id='product'>Product</h2>
 <p>This endpoint provides detailed information about a specific product based on its unique identifier. 
 By sending a GET request to the specified URL with the appropriate parameters, a JSON response containing 
@@ -1393,6 +1414,8 @@ For more details about the object properties, refer to the <a href="#product-pro
 <ul>
 <li>If an invalid <code>productId</code> or <code>email</code> is provided, a HTTP 404 Not Found will be returned.</li>
 </ul>
+
+<hr>
 <h2 id='toggle-favorite-2'>Toggle Favorite</h2>
 <p>This endpoint allows users to toggle the &quot;Favored&quot; status of a specific product, 
 either marking it as a favorite or removing it from their favorites. 
@@ -1460,9 +1483,11 @@ For more details about the object properties, refer to the <a href="#category-pr
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
   </span><span class="p">{</span><span class="w">
     </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"nameDA"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"nameEN"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"nameES"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"da"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"en"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"es"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
     </span><span class="nl">"imageSrc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">]</span><span class="w">
@@ -1474,9 +1499,11 @@ For more details about the object properties, refer to the <a href="#category-pr
   </span><span class="p">{</span><span class="w">
     </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
     </span><span class="nl">"parentId"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"nameDA"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"nameEN"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"nameES"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"da"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"en"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"es"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
     </span><span class="nl">"imageSrc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">]</span><span class="w">
@@ -1519,24 +1546,38 @@ For more details about the object properties, refer to the <a href="#category-pr
 <td>(Only for sub-categories) The unique identifier of the associated main category.</td>
 </tr>
 <tr>
-<td><code>NameDA</code></td>
-<td>string</td>
-<td>The Danish Translation of the name of the category or sub-category.</td>
-</tr>
-<tr>
-<td><code>NameEN</code></td>
-<td>string</td>
-<td>The English Translation of the name of the category or sub-category.</td>
-</tr>
-<tr>
-<td><code>NameES</code></td>
-<td>string</td>
-<td>The Spanish Translation of the name of the category or sub-category.</td>
+<td><code>Name</code></td>
+<td>object&lt;<a href="#category-translation-prodperty">translation</a>&gt;</td>
+<td>The translations of the name of the category or sub-category. Includes da, en, and es fields.</td>
 </tr>
 <tr>
 <td><code>ImageSrc</code></td>
 <td>string</td>
 <td>The source for the category or sub-category image.</td>
+</tr>
+</tbody></table>
+<h3 id='category-translation-properties'>Category Translation Properties</h3>
+<table><thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>name.da</code></td>
+<td>string</td>
+<td>The Danish translation of the category or sub-category name.</td>
+</tr>
+<tr>
+<td><code>name.en</code></td>
+<td>string</td>
+<td>The English translation of the category or sub-category name.</td>
+</tr>
+<tr>
+<td><code>name.es</code></td>
+<td>string</td>
+<td>The Spanish translation of the category or sub-category name.</td>
 </tr>
 </tbody></table>
 
@@ -1560,6 +1601,169 @@ For more details about the object properties, refer to the <a href="#category-pr
 <li>If the provided <code>parentId</code> does not contain any sub-categories, an empty list will be returned.</li>
 <li>If an invalid <code>parentId</code> is provided, a HTTP 404 Not Found will be returned.</li>
 </ul>
+
+<hr>
+<h2 id='sections'>Sections</h2>
+<p>This endpoint is used to retrieve a list of sections for the In-App Shop.
+By sending a GET request to the specified URL, a JSON response containing a list of sections, each with its associated products, will be returned.
+For more details about the object properties, refer to the <a href="#section-properties">Properties</a> section.</p>
+<div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> <span class="s1">'GET'</span> <span class="se">\</span>
+  <span class="s1">'https://viabill.viaads.dk/shop/v1/sections'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'accept: application/json'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'ApiKey: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'</span>
+</code></pre></div>
+<blockquote>
+<p>JSON response example for sections:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"da"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sommerudsalg"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"en"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Summer Sale"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"es"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Venta de Verano"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"subtitle"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"da"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Få de bedste tilbud på sommerens nødvendigheder"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"en"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Get the best deals on summer essentials"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"es"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Obtén las mejores ofertas en esenciales de verano"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"product carousel"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"productCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"products"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"prod123"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"src"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://example.com/images/prod123.jpg"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sunscreen Lotion"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"normalPrice"</span><span class="p">:</span><span class="w"> </span><span class="mf">15.00</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"salePrice"</span><span class="p">:</span><span class="w"> </span><span class="mf">10.00</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"onSale"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"bestSeller"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"favored"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"includesVariants"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"merchantName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Beach Equipment"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"prod124"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"src"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://example.com/images/prod124.jpg"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Beach Towel"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"normalPrice"</span><span class="p">:</span><span class="w"> </span><span class="mf">25.00</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"salePrice"</span><span class="p">:</span><span class="w"> </span><span class="mf">20.00</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"onSale"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"bestSeller"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"favored"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"includesVariants"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"merchantName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Beach Equipment"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre></div><h3 id='http-request-11'>HTTP Request</h3>
+<h3>
+<span class="get">GET</span>/shop/v1/sections
+</h3>
+<h3 id='section-properties'>Section Properties</h3>
+<table><thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>id</code></td>
+<td>int</td>
+<td>The unique identifier of the section.</td>
+</tr>
+<tr>
+<td><code>title</code></td>
+<td>object&lt;<a href="#section-translation-properties">translation</a>&gt;</td>
+<td>Translated titles of the section. Includes da, en, and es fields.</td>
+</tr>
+<tr>
+<td><code>subtitle</code></td>
+<td>object&lt;<a href="#section-translation-properties">translation</a>&gt;</td>
+<td>Translated subtitles of the section. Includes da, en, and es fields.</td>
+</tr>
+<tr>
+<td><code>type</code></td>
+<td>string</td>
+<td>The type of section. Used for differentiation.</td>
+</tr>
+<tr>
+<td><code>productCount</code></td>
+<td>int</td>
+<td>The number of products in the section.</td>
+</tr>
+<tr>
+<td><code>products</code></td>
+<td>array&lt;<a href="#ProductRef-properties">ProductRef</a>&gt;</td>
+<td>Array of <a href="#ProductRef-properties">ProductRef</a> objects associated with this section.</td>
+</tr>
+</tbody></table>
+<h3 id='section-translation-properties'>Section Translation Properties</h3>
+<table><thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>title.da</code></td>
+<td>string</td>
+<td>The Danish translation of the section title.</td>
+</tr>
+<tr>
+<td><code>title.en</code></td>
+<td>string</td>
+<td>The English translation of the section title.</td>
+</tr>
+<tr>
+<td><code>title.es</code></td>
+<td>string</td>
+<td>The Spanish translation of the section title.</td>
+</tr>
+<tr>
+<td><code>subtitle.da</code></td>
+<td>string</td>
+<td>The Danish translation of the section subtitle.</td>
+</tr>
+<tr>
+<td><code>subtitle.en</code></td>
+<td>string</td>
+<td>The English translation of the section subtitle.</td>
+</tr>
+<tr>
+<td><code>subtitle.es</code></td>
+<td>string</td>
+<td>The Spanish translation of the section subtitle.</td>
+</tr>
+</tbody></table>
+
+<p><b>Note: </b> The <code>products</code> array within each section provides detailed information about each product to ensure comprehensive display and interaction on the front end.
+<br>The products properties are similar to the ProductRef, which is found here: <a href="#ProductRef-properties">Product Properties</a></p>
+
+<blockquote>
+<p>JSON response example for No Sections:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">[]</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>JSON response example for HTTP 404 Not Found:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="mi">404</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"error"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Not Found"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"No sections found."</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h3 id='handling-errors-8'>Handling Errors</h3>
+<ul>
+<li>If no sections are available, an empty list will be returned.</li>
+<li>If an invalid request is made, a HTTP 404 Not Found will be returned.</li>
+</ul>
+
+<hr>
 <h2 id='event-2'>Event</h2>
 <p>This endpoint is used for pushing shop events to track customer behavior.</p>
 <div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> <span class="s1">'POST'</span> <span class="se">\</span>
@@ -1582,7 +1786,7 @@ For more details about the object properties, refer to the <a href="#category-pr
   </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
   </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Successfully added the event"</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h3 id='http-request-11'>HTTP Request</h3>
+</span></code></pre></div><h3 id='http-request-12'>HTTP Request</h3>
 <h3>
 <span class="post">POST</span>/shop/v1/event
 </h3>
@@ -1612,37 +1816,7 @@ For more details about the object properties, refer to the <a href="#category-pr
 <tr>
 <td><code>EventType</code></td>
 <td>string</td>
-<td>The type of event, which can be any of the following values:</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td>- <code>products_list_viewed</code>: (New) When a customer views a list of product&#39;s</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td>- <code>product_viewed</code>:  When a customer views a product&#39;s details.</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td>- <code>product_favorised</code>: When a customer favors a product.</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td>- <code>product_unfavorised</code>: When a customer un-favors a product.</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td>- <code>product_searched</code>:  When a customer searches for a product.</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td>- <code>product_redirect</code>:  When a customer gets redirected</td>
+<td>The type of event. <a href="#EventType-Property-1">Event Types</a>.</td>
 </tr>
 <tr>
 <td><code>EventDate</code></td>
@@ -1653,6 +1827,16 @@ For more details about the object properties, refer to the <a href="#category-pr
 <td><code>SearchGuid</code></td>
 <td>string</td>
 <td>(Optional) The GUID used for the <a href="#products">Product Search Query</a>. Relevant for <code>product_viewed</code> and <code>product_favorised</code></td>
+</tr>
+<tr>
+<td><code>ListType</code> (New)</td>
+<td>string</td>
+<td>(Optional) The type of List being viewed <a href="#ListType-Property">ListTypes</a> Relevant for <code>product_list_viewed</code></td>
+</tr>
+<tr>
+<td><code>ListId</code>   (New)</td>
+<td>int</td>
+<td>(Optional) The list Id of the current <code>ListType</code> being viewed. Relevant for <code>product_list_viewed</code></td>
 </tr>
 </tbody></table>
 
@@ -1670,6 +1854,16 @@ For more details about the object properties, refer to the <a href="#category-pr
 </ul>
 
 <p><br></p>
+<h3 id='listtype-property'>ListType Property:</h3>
+<p>The <code>ListType</code> property describes specific lis types that customers are able to view in the in-app shop:</p>
+
+<ul>
+<li><code>section</code>: (New) Refers to a <a href="#Sections">Section</a>. <br></li>
+<li><code>category</code>: (New) Refers to a <a href="#Categories-and-Sub-categories">Category</a>. <br></li>
+<li><code>search</code>: (To Come) Refers to a free search being made. <br></li>
+</ul>
+
+<p><br></p>
 
 <p>The response of this endpoint will provide a status code and a message that indicates the success or failure of the event submission.</p>
 
@@ -1682,7 +1876,7 @@ For more details about the object properties, refer to the <a href="#category-pr
   </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Invalid EventType provided."</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
-</span></code></pre></div><h3 id='handling-errors-8'>Handling Errors</h3>
+</span></code></pre></div><h3 id='handling-errors-9'>Handling Errors</h3>
 <ul>
 <li>If an incorrect <code>EventType</code> is provided in the request, the server will return an HTTP 400 Bad Request along with an error message.</li>
 </ul>
