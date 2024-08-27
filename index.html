@@ -408,7 +408,17 @@ You must replace <code>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</code> with your per
 </aside>
 
 <hr>
-<h1 id='changelog'>Changelog</h1><h2 id='recent-changes'>Recent Changes</h2><h3 id='2024-07-04'>2024-07-04</h3><h4 id='in-app-shop-api-documentation-enhancements'>In-App Shop API Documentation Enhancements:</h4>
+<h1 id='changelog'>Changelog</h1><h2 id='recent-changes'>Recent Changes</h2><h3 id='2024-08-27'>2024-08-27</h3><h4 id='in-app-shop-api-documentation-additions'>In-App Shop API Documentation additions:</h4>
+<ul>
+<li><b><a href="#event-1">Event</a> Request body:</b>
+
+<ul>
+<li>Updated the Request Body for the <code>product_searched</code> Event Type.</li>
+</ul></li>
+</ul>
+
+<p><br></p>
+<h3 id='2024-07-04'>2024-07-04</h3><h4 id='in-app-shop-api-documentation-enhancements'>In-App Shop API Documentation Enhancements:</h4>
 <ul>
 <li><b><a href="#products">Products</a> Endpoint:</b>
 
@@ -1819,7 +1829,7 @@ For more details about the object properties, refer to the <a href="#section-pro
 <tr>
 <td><code>ProductId</code></td>
 <td>string</td>
-<td>(Optional) The Unique Identifier of the product related to the event. Required for all events except <code>products_list_viewed</code></td>
+<td>(Optional) The Unique Identifier of the product related to the event. Required for all events except <code>products_list_viewed</code> and <code>product_searched</code></td>
 </tr>
 <tr>
 <td><code>ProductIds</code></td>
@@ -1844,7 +1854,7 @@ For more details about the object properties, refer to the <a href="#section-pro
 <tr>
 <td><code>SearchGuid</code></td>
 <td>string</td>
-<td>(Optional) The GUID used for the <a href="#products">Product Search Query</a>. Relevant for <code>product_viewed</code> and <code>product_favorised</code></td>
+<td>(Optional) The GUID used for the <a href="#products">Product Search Query</a>. Relevant for <code>product_viewed</code>, <code>product_favorised</code> and <code>product_searched</code></td>
 </tr>
 <tr>
 <td><code>ListType</code> (New)</td>
@@ -1858,7 +1868,7 @@ For more details about the object properties, refer to the <a href="#section-pro
 </tr>
 </tbody></table>
 
-<p><b>Note:</b> The ProductId is optional for events that are not directly related to a specific product, such as general searches or app-wide actions. However, for product-specific actions like viewing or favoriting, it&#39;s recommended to include the ProductId.</p>
+<p><b>Note:</b> The ProductId is optional for events that are not directly related to a specific product, such as general searches or app-wide actions. However, for product-specific actions like viewing or favouring, it&#39;s recommended to include the ProductId.</p>
 <h3 id='eventtype-property-2'>EventType Property:</h3>
 <p>The <code>EventType</code> property describes specific actions that customers might undertake in the in-app shop:</p>
 
@@ -1878,7 +1888,7 @@ For more details about the object properties, refer to the <a href="#section-pro
 <ul>
 <li><code>section</code>: (New) Refers to a <a href="#Sections">Section</a>. <br></li>
 <li><code>category</code>: (New) Refers to a <a href="#Categories-and-Sub-categories">Category</a>. <br></li>
-<li><code>search</code>: (To Come) Refers to a free search being made. <br></li>
+<li><code>search</code>: (New) Refers to a free search being made. <br></li>
 </ul>
 
 <p><br></p>
